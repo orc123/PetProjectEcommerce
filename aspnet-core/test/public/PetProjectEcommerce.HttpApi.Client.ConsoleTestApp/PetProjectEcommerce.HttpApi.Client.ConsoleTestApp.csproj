@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\public\PetProjectEcommerce.HttpApi.Client\PetProjectEcommerce.HttpApi.Client.csproj" />
+    <ProjectReference Include="..\..\..\src\public\PetProjectEcommerce.HttpApi.Client\PetProjectEcommerce.HttpApi.Client.csproj" />
   </ItemGroup>
 
 </Project>
