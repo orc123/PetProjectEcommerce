@@ -3,39 +3,39 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Domain", "src\PetProjectEcommerce.Domain\PetProjectEcommerce.Domain.csproj", "{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Domain", "src\common\domain\PetProjectEcommerce.Domain\PetProjectEcommerce.Domain.csproj", "{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Application", "src\PetProjectEcommerce.Application\PetProjectEcommerce.Application.csproj", "{1A94A50E-06DC-43C1-80B5-B662820EC3EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Application", "src\public\PetProjectEcommerce.Application\PetProjectEcommerce.Application.csproj", "{1A94A50E-06DC-43C1-80B5-B662820EC3EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.EntityFrameworkCore", "src\PetProjectEcommerce.EntityFrameworkCore\PetProjectEcommerce.EntityFrameworkCore.csproj", "{C956DD76-69C8-4A9C-83EA-D17DF83340FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.EntityFrameworkCore", "src\common\infrastructure\PetProjectEcommerce.EntityFrameworkCore\PetProjectEcommerce.EntityFrameworkCore.csproj", "{C956DD76-69C8-4A9C-83EA-D17DF83340FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CA9AC87F-097E-4F15-8393-4BC07735A5B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{04DBDB01-70F4-4E06-B468-8F87850B22BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Application.Tests", "test\PetProjectEcommerce.Application.Tests\PetProjectEcommerce.Application.Tests.csproj", "{50B2631D-129C-47B3-A587-029CCD6099BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Application.Tests", "test\public\PetProjectEcommerce.Application.Tests\PetProjectEcommerce.Application.Tests.csproj", "{50B2631D-129C-47B3-A587-029CCD6099BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Domain.Shared", "src\PetProjectEcommerce.Domain.Shared\PetProjectEcommerce.Domain.Shared.csproj", "{42F719ED-8413-4895-B5B4-5AB56079BC66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Domain.Shared", "src\common\domain\PetProjectEcommerce.Domain.Shared\PetProjectEcommerce.Domain.Shared.csproj", "{42F719ED-8413-4895-B5B4-5AB56079BC66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Application.Contracts", "src\PetProjectEcommerce.Application.Contracts\PetProjectEcommerce.Application.Contracts.csproj", "{520659C8-C734-4298-A3DA-B539DB9DFC0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Application.Contracts", "src\public\PetProjectEcommerce.Application.Contracts\PetProjectEcommerce.Application.Contracts.csproj", "{520659C8-C734-4298-A3DA-B539DB9DFC0B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi", "src\PetProjectEcommerce.HttpApi\PetProjectEcommerce.HttpApi.csproj", "{4164BDF7-F527-4E85-9CE6-E3C2D7426A27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi", "src\public\PetProjectEcommerce.HttpApi\PetProjectEcommerce.HttpApi.csproj", "{4164BDF7-F527-4E85-9CE6-E3C2D7426A27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Client", "src\PetProjectEcommerce.HttpApi.Client\PetProjectEcommerce.HttpApi.Client.csproj", "{3B5A0094-670D-4BB1-BFDD-61B88A8773DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Client", "src\public\PetProjectEcommerce.HttpApi.Client\PetProjectEcommerce.HttpApi.Client.csproj", "{3B5A0094-670D-4BB1-BFDD-61B88A8773DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.AuthServer", "src\PetProjectEcommerce.AuthServer\PetProjectEcommerce.AuthServer.csproj", "{073C361E-B8F4-49F5-93CC-72A3FF49C026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.AuthServer", "src\identity\PetProjectEcommerce.AuthServer\PetProjectEcommerce.AuthServer.csproj", "{073C361E-B8F4-49F5-93CC-72A3FF49C026}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Host", "src\PetProjectEcommerce.HttpApi.Host\PetProjectEcommerce.HttpApi.Host.csproj", "{E6D5BF0E-DE92-4D82-A352-EF04B37CB11C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Host", "src\public\PetProjectEcommerce.HttpApi.Host\PetProjectEcommerce.HttpApi.Host.csproj", "{E6D5BF0E-DE92-4D82-A352-EF04B37CB11C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.EntityFrameworkCore.Tests", "test\PetProjectEcommerce.EntityFrameworkCore.Tests\PetProjectEcommerce.EntityFrameworkCore.Tests.csproj", "{1FE30EB9-74A9-47F5-A9F6-7B1FAB672D81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.EntityFrameworkCore.Tests", "test\shared\PetProjectEcommerce.EntityFrameworkCore.Tests\PetProjectEcommerce.EntityFrameworkCore.Tests.csproj", "{1FE30EB9-74A9-47F5-A9F6-7B1FAB672D81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.TestBase", "test\PetProjectEcommerce.TestBase\PetProjectEcommerce.TestBase.csproj", "{91853F21-9CD9-4132-BC29-A7D5D84FFFE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.TestBase", "test\shared\PetProjectEcommerce.TestBase\PetProjectEcommerce.TestBase.csproj", "{91853F21-9CD9-4132-BC29-A7D5D84FFFE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Domain.Tests", "test\PetProjectEcommerce.Domain.Tests\PetProjectEcommerce.Domain.Tests.csproj", "{E512F4D9-9375-480F-A2F6-A46509F9D824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Domain.Tests", "test\shared\PetProjectEcommerce.Domain.Tests\PetProjectEcommerce.Domain.Tests.csproj", "{E512F4D9-9375-480F-A2F6-A46509F9D824}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Client.ConsoleTestApp", "test\PetProjectEcommerce.HttpApi.Client.ConsoleTestApp\PetProjectEcommerce.HttpApi.Client.ConsoleTestApp.csproj", "{EF480016-9127-4916-8735-D2466BDBC582}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Client.ConsoleTestApp", "test\public\PetProjectEcommerce.HttpApi.Client.ConsoleTestApp\PetProjectEcommerce.HttpApi.Client.ConsoleTestApp.csproj", "{EF480016-9127-4916-8735-D2466BDBC582}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.DbMigrator", "src\PetProjectEcommerce.DbMigrator\PetProjectEcommerce.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.DbMigrator", "src\common\infrastructure\PetProjectEcommerce.DbMigrator\PetProjectEcommerce.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{164BB9E5-5C80-46E3-A940-47471B4013C2}"
 EndProject
@@ -45,9 +45,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{FA16C1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{8F90CD3C-4409-49BF-8F77-D57D49507897}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{0A68A005-7965-4937-9DC8-B32AD220872A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "public", "public", "{0A68A005-7965-4937-9DC8-B32AD220872A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{5E45B95E-9A3F-4452-8FEB-FA792E8F1954}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "public", "public", "{D07CA8E3-9EDA-42D8-8712-87782F737F2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{6F2EA93D-1D5A-440A-AE47-56D9B71DBCD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Admin.Application", "src\admin\PetProjectEcommerce.Admin.Application\PetProjectEcommerce.Admin.Application.csproj", "{9FD06AA7-808B-45D9-BFC5-20D26FB5EE9E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Admin.Application.Contracts", "src\admin\PetProjectEcommerce.Admin.Application.Contracts\PetProjectEcommerce.Admin.Application.Contracts.csproj", "{758E114A-FD3E-4A8B-BF03-7947C3B8F0B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Admin.HttpApi", "src\admin\PetProjectEcommerce.Admin.HttpApi\PetProjectEcommerce.Admin.HttpApi.csproj", "{7CADD950-8499-47ED-BFA2-B7A7C30A74A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Admin.HttpApi.Client", "src\admin\PetProjectEcommerce.Admin.HttpApi.Client\PetProjectEcommerce.Admin.HttpApi.Client.csproj", "{EC82CBF9-0D4F-4644-BF83-D92E89F1B5E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Admin.HttpApi.Host", "src\admin\PetProjectEcommerce.Admin.HttpApi.Host\PetProjectEcommerce.Admin.HttpApi.Host.csproj", "{C6259D28-F1C4-4FB8-9C02-7F5AB1438B1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{2CBD668C-D728-47FC-9360-C71B2C7A7D33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Admin.Application.Tests", "test\admin\PetProjectEcommerce.Admin.Application.Tests\PetProjectEcommerce.Admin.Application.Tests.csproj", "{BEA98D3F-A381-4F16-819B-C5AF351840D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.Admin.HttpApi.Client.ConsoleTestApp", "test\admin\PetProjectEcommerce.Admin.HttpApi.Client.ConsoleTestApp\PetProjectEcommerce.Admin.HttpApi.Client.ConsoleTestApp.csproj", "{7EFCCEC5-E599-4401-B0FD-EFEB938CD18A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +135,34 @@ Global
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FD06AA7-808B-45D9-BFC5-20D26FB5EE9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD06AA7-808B-45D9-BFC5-20D26FB5EE9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD06AA7-808B-45D9-BFC5-20D26FB5EE9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD06AA7-808B-45D9-BFC5-20D26FB5EE9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{758E114A-FD3E-4A8B-BF03-7947C3B8F0B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{758E114A-FD3E-4A8B-BF03-7947C3B8F0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{758E114A-FD3E-4A8B-BF03-7947C3B8F0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{758E114A-FD3E-4A8B-BF03-7947C3B8F0B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CADD950-8499-47ED-BFA2-B7A7C30A74A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CADD950-8499-47ED-BFA2-B7A7C30A74A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CADD950-8499-47ED-BFA2-B7A7C30A74A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CADD950-8499-47ED-BFA2-B7A7C30A74A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC82CBF9-0D4F-4644-BF83-D92E89F1B5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC82CBF9-0D4F-4644-BF83-D92E89F1B5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC82CBF9-0D4F-4644-BF83-D92E89F1B5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC82CBF9-0D4F-4644-BF83-D92E89F1B5E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6259D28-F1C4-4FB8-9C02-7F5AB1438B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6259D28-F1C4-4FB8-9C02-7F5AB1438B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6259D28-F1C4-4FB8-9C02-7F5AB1438B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6259D28-F1C4-4FB8-9C02-7F5AB1438B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEA98D3F-A381-4F16-819B-C5AF351840D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEA98D3F-A381-4F16-819B-C5AF351840D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEA98D3F-A381-4F16-819B-C5AF351840D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEA98D3F-A381-4F16-819B-C5AF351840D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EFCCEC5-E599-4401-B0FD-EFEB938CD18A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EFCCEC5-E599-4401-B0FD-EFEB938CD18A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EFCCEC5-E599-4401-B0FD-EFEB938CD18A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EFCCEC5-E599-4401-B0FD-EFEB938CD18A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,17 +171,17 @@ Global
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F} = {FA16C104-C385-4913-9DEE-BB7AC24C069B}
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB} = {0A68A005-7965-4937-9DC8-B32AD220872A}
 		{C956DD76-69C8-4A9C-83EA-D17DF83340FD} = {8F90CD3C-4409-49BF-8F77-D57D49507897}
-		{50B2631D-129C-47B3-A587-029CCD6099BC} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
+		{50B2631D-129C-47B3-A587-029CCD6099BC} = {D07CA8E3-9EDA-42D8-8712-87782F737F2D}
 		{42F719ED-8413-4895-B5B4-5AB56079BC66} = {FA16C104-C385-4913-9DEE-BB7AC24C069B}
 		{520659C8-C734-4298-A3DA-B539DB9DFC0B} = {0A68A005-7965-4937-9DC8-B32AD220872A}
 		{4164BDF7-F527-4E85-9CE6-E3C2D7426A27} = {0A68A005-7965-4937-9DC8-B32AD220872A}
 		{3B5A0094-670D-4BB1-BFDD-61B88A8773DC} = {0A68A005-7965-4937-9DC8-B32AD220872A}
 		{073C361E-B8F4-49F5-93CC-72A3FF49C026} = {164BB9E5-5C80-46E3-A940-47471B4013C2}
 		{E6D5BF0E-DE92-4D82-A352-EF04B37CB11C} = {0A68A005-7965-4937-9DC8-B32AD220872A}
-		{1FE30EB9-74A9-47F5-A9F6-7B1FAB672D81} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
-		{91853F21-9CD9-4132-BC29-A7D5D84FFFE7} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
-		{E512F4D9-9375-480F-A2F6-A46509F9D824} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
-		{EF480016-9127-4916-8735-D2466BDBC582} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
+		{1FE30EB9-74A9-47F5-A9F6-7B1FAB672D81} = {6F2EA93D-1D5A-440A-AE47-56D9B71DBCD9}
+		{91853F21-9CD9-4132-BC29-A7D5D84FFFE7} = {6F2EA93D-1D5A-440A-AE47-56D9B71DBCD9}
+		{E512F4D9-9375-480F-A2F6-A46509F9D824} = {6F2EA93D-1D5A-440A-AE47-56D9B71DBCD9}
+		{EF480016-9127-4916-8735-D2466BDBC582} = {D07CA8E3-9EDA-42D8-8712-87782F737F2D}
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D} = {8F90CD3C-4409-49BF-8F77-D57D49507897}
 		{164BB9E5-5C80-46E3-A940-47471B4013C2} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{5F8852F3-72CF-40A7-A0C6-4C8923C1103A} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
@@ -141,6 +189,16 @@ Global
 		{8F90CD3C-4409-49BF-8F77-D57D49507897} = {5F8852F3-72CF-40A7-A0C6-4C8923C1103A}
 		{0A68A005-7965-4937-9DC8-B32AD220872A} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{5E45B95E-9A3F-4452-8FEB-FA792E8F1954} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
+		{D07CA8E3-9EDA-42D8-8712-87782F737F2D} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
+		{6F2EA93D-1D5A-440A-AE47-56D9B71DBCD9} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
+		{9FD06AA7-808B-45D9-BFC5-20D26FB5EE9E} = {5E45B95E-9A3F-4452-8FEB-FA792E8F1954}
+		{758E114A-FD3E-4A8B-BF03-7947C3B8F0B6} = {5E45B95E-9A3F-4452-8FEB-FA792E8F1954}
+		{7CADD950-8499-47ED-BFA2-B7A7C30A74A4} = {5E45B95E-9A3F-4452-8FEB-FA792E8F1954}
+		{EC82CBF9-0D4F-4644-BF83-D92E89F1B5E2} = {5E45B95E-9A3F-4452-8FEB-FA792E8F1954}
+		{C6259D28-F1C4-4FB8-9C02-7F5AB1438B1B} = {5E45B95E-9A3F-4452-8FEB-FA792E8F1954}
+		{2CBD668C-D728-47FC-9360-C71B2C7A7D33} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
+		{BEA98D3F-A381-4F16-819B-C5AF351840D5} = {2CBD668C-D728-47FC-9360-C71B2C7A7D33}
+		{7EFCCEC5-E599-4401-B0FD-EFEB938CD18A} = {2CBD668C-D728-47FC-9360-C71B2C7A7D33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}
