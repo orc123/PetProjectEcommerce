@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\common.props" />
+  <Import Project="..\..\..\common.props" />
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PetProjectEcommerce.Domain\PetProjectEcommerce.Domain.csproj" />
+    <ProjectReference Include="..\..\common\domain\PetProjectEcommerce.Domain\PetProjectEcommerce.Domain.csproj" />
     <ProjectReference Include="..\PetProjectEcommerce.Application.Contracts\PetProjectEcommerce.Application.Contracts.csproj" />
   </ItemGroup>
 
