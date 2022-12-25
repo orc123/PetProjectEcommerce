@@ -75,10 +75,10 @@ public class PetProjectEcommerceAdminHttpApiHostModule : AbpModule
             {
                 options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainSharedModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain.Shared"));
+                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain.Shared").Replace("admin", "common\\domain"));
                 options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain"));
+                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain").Replace("admin", "common\\domain"));
                 options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceAdminApplicationContractsModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
                         $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Admin.Application.Contracts"));

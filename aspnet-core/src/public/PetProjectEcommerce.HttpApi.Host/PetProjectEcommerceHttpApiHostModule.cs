@@ -73,12 +73,13 @@ public class PetProjectEcommerceHttpApiHostModule : AbpModule
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
+                string path = Path.Combine(hostingEnvironment.ContentRootPath);
                 options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainSharedModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain.Shared"));
+                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain.Shared").Replace("public","common\\domain"));
                 options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain"));
+                        $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain").Replace("public", "common\\domain"));
                 options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceApplicationContractsModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
                         $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Application.Contracts"));

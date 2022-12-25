@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Client", "src\public\PetProjectEcommerce.HttpApi.Client\PetProjectEcommerce.HttpApi.Client.csproj", "{3B5A0094-670D-4BB1-BFDD-61B88A8773DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.AuthServer", "src\identity\PetProjectEcommerce.AuthServer\PetProjectEcommerce.AuthServer.csproj", "{073C361E-B8F4-49F5-93CC-72A3FF49C026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.AuthServer", "src\auth\PetProjectEcommerce.AuthServer\PetProjectEcommerce.AuthServer.csproj", "{073C361E-B8F4-49F5-93CC-72A3FF49C026}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi.Host", "src\public\PetProjectEcommerce.HttpApi.Host\PetProjectEcommerce.HttpApi.Host.csproj", "{E6D5BF0E-DE92-4D82-A352-EF04B37CB11C}"
 EndProject
@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.HttpApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProjectEcommerce.DbMigrator", "src\common\infrastructure\PetProjectEcommerce.DbMigrator\PetProjectEcommerce.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{164BB9E5-5C80-46E3-A940-47471B4013C2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "auth", "auth", "{164BB9E5-5C80-46E3-A940-47471B4013C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{5F8852F3-72CF-40A7-A0C6-4C8923C1103A}"
 EndProject

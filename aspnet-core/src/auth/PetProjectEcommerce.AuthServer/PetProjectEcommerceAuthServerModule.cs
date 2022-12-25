@@ -119,8 +119,10 @@ public class PetProjectEcommerceAuthServerModule : AbpModule
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain.Shared"));
-                options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain"));
+                options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, 
+                    $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain.Shared").Replace("auth", "common\\domain"));
+                options.FileSets.ReplaceEmbeddedByPhysical<PetProjectEcommerceDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, 
+                    $"..{Path.DirectorySeparatorChar}PetProjectEcommerce.Domain").Replace("auth", "common\\domain"));
             });
         }
 
