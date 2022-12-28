@@ -40,6 +40,5 @@ namespace PetProjectEcommerce.Products
         public virtual ICollection<ProductAttributeVarchar> ProductAttributeVarchars { get; set; }
         public virtual ICollection<ProductTag> ProductTags { get; set; }
         public virtual ICollection<ProductReview> ProductReviews { get; set; }
-        public virtual ICollection<PromotionProduct> PromotionProducts { get; set; }
     }
 }

@@ -417,8 +417,6 @@ public class PetProjectEcommerceDbContext :
 
             b.HasOne(x => x.Promotion).WithMany(x => x.PromotionCategories).HasConstraintName("FK_PromotionCategory_Promotion")
                .HasForeignKey(x => x.PromotionId);
-            b.HasOne(x => x.ProductCategory).WithMany(x => x.PromotionCategories).HasConstraintName("FK_PromotionCategory_ProductCategory")
-               .HasForeignKey(x => x.CategoryId);
         });
 
         builder.Entity<PromotionManufacturer>(b =>
@@ -428,8 +426,6 @@ public class PetProjectEcommerceDbContext :
 
             b.HasOne(x => x.Promotion).WithMany(x => x.PromotionManufacturers).HasConstraintName("FK_PromotionManufacturer_Promotion")
               .HasForeignKey(x => x.PromotionId);
-            b.HasOne(x => x.Manufacturer).WithMany(x => x.PromotionManufacturers).HasConstraintName("FK_PromotionManufacturer_Manufacturer")
-             .HasForeignKey(x => x.ManufactureId);
         });
 
         builder.Entity<PromotionProduct>(b =>
@@ -438,9 +434,7 @@ public class PetProjectEcommerceDbContext :
             b.HasKey(x => x.Id);
 
             b.HasOne(x => x.Promotion).WithMany(x => x.PromotionProducts).HasConstraintName("FK_PromotionProduct_Promotion")
-              .HasForeignKey(x => x.PromotionId);
-            b.HasOne(x => x.Product).WithMany(x => x.PromotionProducts).HasConstraintName("FK_PromotionProduct_Product")
-             .HasForeignKey(x => x.ProductId);
+              .HasForeignKey(x => x.PromotionId);;
         });
 
         builder.Entity<PromotionUsageHistory>(b =>
@@ -450,8 +444,6 @@ public class PetProjectEcommerceDbContext :
 
             b.HasOne(x => x.Promotion).WithMany(x => x.PromotionUsageHistories).HasConstraintName("FK_PromotionUsageHistory_Promotion")
               .HasForeignKey(x => x.PromotionId);
-            b.HasOne(x => x.Order).WithMany(x => x.PromotionUsageHistories).HasConstraintName("FK_PromotionUsageHistory_Order")
-              .HasForeignKey(x => x.OrderId);
         });
 
         #endregion

@@ -27,6 +27,5 @@ namespace PetProjectEcommerce.Orders
         public virtual IdentityUser User { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<OrderTransaction> OrderTransactions { get; set; }
-        public virtual ICollection<PromotionUsageHistory> PromotionUsageHistories { get; set; }
     }
 }

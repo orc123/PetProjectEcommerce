@@ -16,6 +16,5 @@ namespace PetProjectEcommerce.Manufacturers
         public bool IsActive { get; set; }
         public string Country { get; set; }
         public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<PromotionManufacturer> PromotionManufacturers { get; set; }
     }
 }

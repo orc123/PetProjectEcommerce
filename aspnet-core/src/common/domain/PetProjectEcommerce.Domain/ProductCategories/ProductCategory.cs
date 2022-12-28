@@ -22,6 +22,5 @@ namespace PetProjectEcommerce.ProductCategories
         public Guid? ParentId { get; set; }
         public string SeoMetaDescription { get; set; }
         public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<PromotionCategory> PromotionCategories { get; set; }
     }
 }

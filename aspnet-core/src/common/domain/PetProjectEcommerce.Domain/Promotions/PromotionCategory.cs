@@ -1,9 +1,4 @@
-﻿using PetProjectEcommerce.ProductCategories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Volo.Abp.Domain.Entities;
 
 namespace PetProjectEcommerce.Promotions
@@ -14,7 +9,6 @@ namespace PetProjectEcommerce.Promotions
         public Guid PromotionId { get; set; }
 
         public virtual Promotion Promotion { get; set; }
-        public virtual ProductCategory ProductCategory { get; set; }
 
     }
 }
