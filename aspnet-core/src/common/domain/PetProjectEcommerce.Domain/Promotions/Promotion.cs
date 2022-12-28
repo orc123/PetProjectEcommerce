@@ -19,5 +19,9 @@ namespace PetProjectEcommerce.Promotions
         public bool LimitedUsageTimes { get; set; }
         public uint MaximumDiscountAmount { get; set; }
         public bool IsActive { get; set; }
+        public virtual ICollection<PromotionCategory> PromotionCategories { get; set; }
+        public virtual ICollection<PromotionManufacturer> PromotionManufacturers { get; set; }
+        public virtual ICollection<PromotionProduct> PromotionProducts { get; set; }
+        public virtual ICollection<PromotionUsageHistory> PromotionUsageHistories { get; set; }
     }
 }

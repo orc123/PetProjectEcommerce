@@ -10,5 +10,6 @@ namespace PetProjectEcommerce.Products
     public class Tag : Entity<string>
     {
         public string Name { get; set; }
+        public virtual ICollection<ProductTag> ProductTags { get; set; }
     }
 }

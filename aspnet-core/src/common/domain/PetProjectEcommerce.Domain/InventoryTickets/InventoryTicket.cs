@@ -14,5 +14,6 @@ namespace PetProjectEcommerce.InventoryTickets
         public bool IsApproved { get; set; }
         public Guid? ApproverId { get; set; }
         public DateTime? ApprovedDate { get; set; }
+        public virtual ICollection<InventoryTicketItem> InventoryTicketItems { get; set; }
     }
 }

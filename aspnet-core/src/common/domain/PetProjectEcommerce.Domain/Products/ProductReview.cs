@@ -16,5 +16,9 @@ namespace PetProjectEcommerce.Products
         public DateTime? PublishedDate { get; set; }
         public string Content { get; set; }
         public Guid OrderId { get; set; }
+
+        public virtual Product Product { get; set; }
+        public virtual ProductReview ProductReviewParent { get; set; }
+        public virtual ICollection<ProductReview> ProductReviewChilds { get; set; }
     }
 }

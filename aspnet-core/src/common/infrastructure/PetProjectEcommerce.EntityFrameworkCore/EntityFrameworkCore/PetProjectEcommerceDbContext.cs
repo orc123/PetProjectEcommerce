@@ -126,6 +126,7 @@ public class PetProjectEcommerceDbContext :
                 .IsRequired();
             b.Property(x => x.StockQuantity)
                 .IsRequired();
+            b.HasOne(x => x.Product).WithMany(x => x.Inventories).HasConstraintName("FK_Inventory_Product").HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<InventoryTicket>(b =>
@@ -150,6 +151,8 @@ public class PetProjectEcommerceDbContext :
             b.Property(x => x.BatchNumber)
                .HasMaxLength(50)
                .IsUnicode(false);
+
+            b.HasOne(x => x.InventoryTicket).WithMany(x => x.InventoryTicketItems).HasConstraintName("FK_InventoryTicketItem_InventoryTicket").HasForeignKey(x => x.TicketId);
         });
 
         builder.Entity<Manufacturer>(b =>
@@ -193,6 +196,8 @@ public class PetProjectEcommerceDbContext :
             b.Property(x => x.CustomerPhoneNumber)
               .HasMaxLength(50)
               .IsRequired();
+
+            b.HasOne(x => x.User).WithMany().HasForeignKey(x => x.CustomerUserId);
         });
 
         builder.Entity<OrderItem>(b =>
@@ -203,6 +208,9 @@ public class PetProjectEcommerceDbContext :
                  .HasMaxLength(50)
                  .IsUnicode(false)
                  .IsRequired();
+
+            b.HasOne(x => x.Order).WithMany(x => x.OrderItems).HasConstraintName("FK_OrderItem_Order").HasForeignKey(x => x.OrderId);
+            b.HasOne(x => x.Product).WithMany(x => x.OrderItems).HasConstraintName("FK_OrderItem_Product").HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<OrderTransaction>(b =>
@@ -213,6 +221,8 @@ public class PetProjectEcommerceDbContext :
                .HasMaxLength(50)
                .IsUnicode(false)
                .IsRequired();
+            b.HasOne(x => x.Order).WithMany(x => x.OrderTransactions).HasConstraintName("FK_OrderTransaction_Order").HasForeignKey(x => x.OrderId);
+            b.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId);
         });
 
         builder.Entity<ProductAttribute>(b =>
@@ -282,24 +292,42 @@ public class PetProjectEcommerceDbContext :
 
             b.Property(x => x.SeoMetaDescription)
              .HasMaxLength(250);
+
+            b.HasOne(x => x.ProductCategory).WithMany(x => x.Products).HasConstraintName("FK_Product_ProductCategory").HasForeignKey(x => x.CategoryId);
+            b.HasOne(x => x.Manufacturer).WithMany(x => x.Products).HasConstraintName("FK_Product_Manufacturer").HasForeignKey(x => x.ManufacturerId);
         });
 
         builder.Entity<ProductAttributeDateTime>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}ProductAttributeDateTimes");
-            b.HasKey(x => x.Id);        
+            b.HasKey(x => x.Id);
+
+            b.HasOne(x => x.ProductAttribute).WithMany(x => x.ProductAttributeDateTimes).HasConstraintName("FK_ProductAttributeDateTime_ProductAttribute")
+                .HasForeignKey(x => x.AttributeId);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductAttributeDateTimes).HasConstraintName("FK_ProductAttributeDateTime_Product")
+                .HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<ProductAttributeDecimal>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}ProductAttributeDecimals");
             b.HasKey(x => x.Id);
+
+            b.HasOne(x => x.ProductAttribute).WithMany(x => x.ProductAttributeDecimals).HasConstraintName("FK_ProductAttributeDecimal_ProductAttribute")
+               .HasForeignKey(x => x.AttributeId);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductAttributeDecimals).HasConstraintName("FK_ProductAttributeDecimal_Product")
+                .HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<ProductAttributeInt>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}ProductAttributeInts");
             b.HasKey(x => x.Id);
+
+            b.HasOne(x => x.ProductAttribute).WithMany(x => x.ProductAttributeInts).HasConstraintName("FK_ProductAttributeInt_ProductAttribute")
+               .HasForeignKey(x => x.AttributeId);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductAttributeInts).HasConstraintName("FK_ProductAttributeInt_Product")
+                .HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<ProductAttributeText>(b =>
@@ -307,6 +335,11 @@ public class PetProjectEcommerceDbContext :
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}ProductAttributeTexts");
             b.HasKey(x => x.Id);
             b.Property(x => x.Value).HasMaxLength(500);
+
+            b.HasOne(x => x.ProductAttribute).WithMany(x => x.ProductAttributeTexts).HasConstraintName("FK_ProductAttributeText_ProductAttribute")
+               .HasForeignKey(x => x.AttributeId);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductAttributeTexts).HasConstraintName("FK_ProductAttributeText_Product")
+                .HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<ProductAttributeVarchar>(b =>
@@ -314,12 +347,20 @@ public class PetProjectEcommerceDbContext :
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}ProductAttributeVarchars");
             b.HasKey(x => x.Id);
             b.Property(x => x.Value).HasMaxLength(500);
+
+            b.HasOne(x => x.ProductAttribute).WithMany(x => x.ProductAttributeVarchars).HasConstraintName("FK_ProductAttributeVarchar_ProductAttribute")
+               .HasForeignKey(x => x.AttributeId);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductAttributeVarchars).HasConstraintName("FK_ProductAttributeVarchar_Product")
+                .HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<ProductLink>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}ProductLinks");
             b.HasKey(x => new { x.ProductId, x.LinkedProductId });
+
+            b.HasOne(x => x.Product).WithMany(x => x.ProductLinks).HasConstraintName("FK_ProductLink_Product")
+             .HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<ProductReview>(b =>
@@ -329,12 +370,18 @@ public class PetProjectEcommerceDbContext :
             b.Property(x => x.Title)
                 .IsRequired()
                 .HasMaxLength(250);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductReviews).HasConstraintName("FK_ProductReview_Product").HasForeignKey(x => x.ProductId);
+            b.HasOne(x => x.ProductReviewParent).WithMany(x => x.ProductReviewChilds).HasConstraintName("FK_ProductReview_ProductReview")
+                    .HasForeignKey(x => x.ParentId);
         });
 
         builder.Entity<ProductTag>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}ProductTags");
             b.HasKey(x => new { x.ProductId, x.TagId });
+
+            b.HasOne(x => x.Product).WithMany(x => x.ProductTags).HasConstraintName("FK_ProductTag_Product").HasForeignKey(x => x.ProductId);
+            b.HasOne(x => x.Tag).WithMany(x => x.ProductTags).HasConstraintName("FK_ProductTag_Tag").HasForeignKey(x => x.TagId);
         });
 
         builder.Entity<Tag>(b =>
@@ -367,24 +414,44 @@ public class PetProjectEcommerceDbContext :
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}PromotionCategories");
             b.HasKey(x => x.Id);
+
+            b.HasOne(x => x.Promotion).WithMany(x => x.PromotionCategories).HasConstraintName("FK_PromotionCategory_Promotion")
+               .HasForeignKey(x => x.PromotionId);
+            b.HasOne(x => x.ProductCategory).WithMany(x => x.PromotionCategories).HasConstraintName("FK_PromotionCategory_ProductCategory")
+               .HasForeignKey(x => x.CategoryId);
         });
 
         builder.Entity<PromotionManufacturer>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}PromotionManufacturers");
             b.HasKey(x => x.Id);
+
+            b.HasOne(x => x.Promotion).WithMany(x => x.PromotionManufacturers).HasConstraintName("FK_PromotionManufacturer_Promotion")
+              .HasForeignKey(x => x.PromotionId);
+            b.HasOne(x => x.Manufacturer).WithMany(x => x.PromotionManufacturers).HasConstraintName("FK_PromotionManufacturer_Manufacturer")
+             .HasForeignKey(x => x.ManufactureId);
         });
 
         builder.Entity<PromotionProduct>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}PromotionProducts");
             b.HasKey(x => x.Id);
+
+            b.HasOne(x => x.Promotion).WithMany(x => x.PromotionProducts).HasConstraintName("FK_PromotionProduct_Promotion")
+              .HasForeignKey(x => x.PromotionId);
+            b.HasOne(x => x.Product).WithMany(x => x.PromotionProducts).HasConstraintName("FK_PromotionProduct_Product")
+             .HasForeignKey(x => x.ProductId);
         });
 
         builder.Entity<PromotionUsageHistory>(b =>
         {
             b.ToTable($"{PetProjectEcommerceConsts.DbTablePrefix}PromotionUsageHistories");
             b.HasKey(x => x.Id);
+
+            b.HasOne(x => x.Promotion).WithMany(x => x.PromotionUsageHistories).HasConstraintName("FK_PromotionUsageHistory_Promotion")
+              .HasForeignKey(x => x.PromotionId);
+            b.HasOne(x => x.Order).WithMany(x => x.PromotionUsageHistories).HasConstraintName("FK_PromotionUsageHistory_Order")
+              .HasForeignKey(x => x.OrderId);
         });
 
         #endregion

@@ -1,4 +1,9 @@
-﻿using System;
+﻿using PetProjectEcommerce.Inventories;
+using PetProjectEcommerce.Manufacturers;
+using PetProjectEcommerce.Orders;
+using PetProjectEcommerce.ProductCategories;
+using PetProjectEcommerce.Promotions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +27,19 @@ namespace PetProjectEcommerce.Products
         public Guid CategoryId { get; set; }
         public string SeoMetaDescription { get; set; }
         public string ThumbnailPicture { get; set; }
+
+        public virtual ProductCategory ProductCategory { get; set; }
+        public virtual Manufacturer Manufacturer { get; set; }
+        public virtual ICollection<Inventory> Inventories { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<ProductLink> ProductLinks { get; set; }
+        public virtual ICollection<ProductAttributeDateTime> ProductAttributeDateTimes { get; set; }
+        public virtual ICollection<ProductAttributeDecimal> ProductAttributeDecimals { get; set; }
+        public virtual ICollection<ProductAttributeText> ProductAttributeTexts { get; set; }
+        public virtual ICollection<ProductAttributeInt> ProductAttributeInts { get; set; }
+        public virtual ICollection<ProductAttributeVarchar> ProductAttributeVarchars { get; set; }
+        public virtual ICollection<ProductTag> ProductTags { get; set; }
+        public virtual ICollection<ProductReview> ProductReviews { get; set; }
+        public virtual ICollection<PromotionProduct> PromotionProducts { get; set; }
     }
 }

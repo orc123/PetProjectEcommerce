@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetProjectEcommerce.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,10 @@ namespace PetProjectEcommerce.ProductAttributes
         public bool IsRequired { get; set; }
         public bool IsUnique { get; set; }
         public string Note { get; set; }
+        public virtual ICollection<ProductAttributeDateTime> ProductAttributeDateTimes { get; set; }
+        public virtual ICollection<ProductAttributeDecimal> ProductAttributeDecimals { get; set; }
+        public virtual ICollection<ProductAttributeText> ProductAttributeTexts { get; set; }
+        public virtual ICollection<ProductAttributeInt> ProductAttributeInts { get; set; }
+        public virtual ICollection<ProductAttributeVarchar> ProductAttributeVarchars { get; set; }
     }
 }

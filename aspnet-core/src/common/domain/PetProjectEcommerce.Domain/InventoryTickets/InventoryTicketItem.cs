@@ -15,5 +15,6 @@ namespace PetProjectEcommerce.InventoryTickets
         public int Quantity { get; set; }
         public string BatchNumber { get; set; }
         public DateTime? ExpiredDate { get; set; }
+        public virtual InventoryTicket InventoryTicket { get; set; }
     }
 }

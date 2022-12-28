@@ -15,5 +15,6 @@ namespace PetProjectEcommerce.Products
         {
             return new object[] { ProductId, LinkedProductId };
         }
+        public virtual Product Product { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PetProjectEcommerce.Products;
+using PetProjectEcommerce.Promotions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,5 +21,7 @@ namespace PetProjectEcommerce.ProductCategories
         public bool IsActive { get; set; }
         public Guid? ParentId { get; set; }
         public string SeoMetaDescription { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<PromotionCategory> PromotionCategories { get; set; }
     }
 }

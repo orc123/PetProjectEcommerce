@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetProjectEcommerce.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace PetProjectEcommerce.Promotions
     {
         public Guid ProductId { get; set; }
         public Guid PromotionId { get; set; }
+        public virtual Promotion Promotion { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

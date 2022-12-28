@@ -1,9 +1,11 @@
-﻿using System;
+﻿using PetProjectEcommerce.Promotions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Identity;
 
 namespace PetProjectEcommerce.Orders
 {
@@ -22,5 +24,9 @@ namespace PetProjectEcommerce.Orders
         public string CustomerPhoneNumber { get; set; }
         public string CustomerAddress { get; set; }
         public Guid? CustomerUserId { get; set; }
+        public virtual IdentityUser User { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<OrderTransaction> OrderTransactions { get; set; }
+        public virtual ICollection<PromotionUsageHistory> PromotionUsageHistories { get; set; }
     }
 }

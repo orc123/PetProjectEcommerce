@@ -1,5 +1,6 @@
 ﻿using System;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Identity;
 
 namespace PetProjectEcommerce.Orders
 {
@@ -10,6 +11,7 @@ namespace PetProjectEcommerce.Orders
         public Guid? UserId { get; set; }
         public TransactionType TransactionType { get; set; }
         public string Note { get; set; }
-
+        public virtual Order Order { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }

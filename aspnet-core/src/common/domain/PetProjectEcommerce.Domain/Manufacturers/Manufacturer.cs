@@ -1,8 +1,7 @@
-﻿using System;
+﻿using PetProjectEcommerce.Products;
+using PetProjectEcommerce.Promotions;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace PetProjectEcommerce.Manufacturers
@@ -16,5 +15,7 @@ namespace PetProjectEcommerce.Manufacturers
         public bool Visibility { get; set; }
         public bool IsActive { get; set; }
         public string Country { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<PromotionManufacturer> PromotionManufacturers { get; set; }
     }
 }

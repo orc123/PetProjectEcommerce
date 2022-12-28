@@ -15,5 +15,7 @@ namespace PetProjectEcommerce.Products
         {
             throw new NotImplementedException();
         }
+        public virtual Product Product { get; set; }
+        public virtual Tag Tag { get; set; }
     }
 }

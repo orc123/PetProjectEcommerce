@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetProjectEcommerce.ProductAttributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace PetProjectEcommerce.Products
         public Guid AttributeId { get; set; }
         public Guid ProductId { get; set; }
         public DateTime Value { get; set; }
+        public virtual ProductAttribute ProductAttribute { get; set; }
+        public virtual Product Product { get; set; }
 
     }
 }
