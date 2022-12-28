@@ -371,6 +371,7 @@ public class PetProjectEcommerceDbContext :
                 .IsRequired()
                 .HasMaxLength(250);
             b.HasOne(x => x.Product).WithMany(x => x.ProductReviews).HasConstraintName("FK_ProductReview_Product").HasForeignKey(x => x.ProductId);
+            b.HasOne(x => x.Order).WithMany(x => x.ProductReviews).HasConstraintName("FK_ProductReview_Order").HasForeignKey(x => x.OrderId);
             b.HasOne(x => x.ProductReviewParent).WithMany(x => x.ProductReviewChilds).HasConstraintName("FK_ProductReview_ProductReview")
                     .HasForeignKey(x => x.ParentId);
         });
