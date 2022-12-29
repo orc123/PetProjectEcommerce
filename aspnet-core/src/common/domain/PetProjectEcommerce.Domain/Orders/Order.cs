@@ -1,4 +1,5 @@
-﻿using PetProjectEcommerce.Promotions;
+﻿using PetProjectEcommerce.Products;
+using PetProjectEcommerce.Promotions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,5 +28,6 @@ namespace PetProjectEcommerce.Orders
         public virtual IdentityUser User { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<OrderTransaction> OrderTransactions { get; set; }
+        public virtual ICollection<ProductReview> ProductReviews { get; set; }
     }
 }
