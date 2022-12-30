@@ -62,6 +62,18 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 }
             });
         }
+        if (await _scopeManager.FindByNameAsync("PetProjectEcommerce.Admin") == null)
+        {
+            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
+            {
+                Name = "PetProjectEcommerce.Admin",
+                DisplayName = "PetProjectEcommerce Admin API",
+                Resources =
+                {
+                    "PetProjectEcommerce Admin"
+                }
+            });
+        }
     }
 
     private async Task CreateApplicationsAsync()
@@ -77,6 +89,33 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         };
 
         var configurationSection = _configuration.GetSection("OpenIddict:Applications");
+
+        //Admin Client
+        var adminClientId = configurationSection["PetProjectEcommerce_Admin:ClientId"];
+        if (!adminClientId.IsNullOrWhiteSpace())
+        {
+            var adminClientRootUrl = configurationSection["PetProjectEcommerce_Admin:RootUrl"].EnsureEndsWith('/');
+
+            /* PetProjectEcommerce_Admin client is only needed if you created a tiered
+             * solution. Otherwise, you can delete this client. */
+            await CreateApplicationAsync(
+                name: adminClientId,
+                type: OpenIddictConstants.ClientTypes.Confidential,
+                consentType: OpenIddictConstants.ConsentTypes.Implicit,
+                displayName: "Admin Application",
+                secret: configurationSection["PetProjectEcommerce_Admin:ClientSecret"] ?? "1q2w3e*",
+                grantTypes: new List<string> //Hybrid flow
+                {
+                    OpenIddictConstants.GrantTypes.Password,
+                    OpenIddictConstants.GrantTypes.RefreshToken,
+                    OpenIddictConstants.GrantTypes.Implicit
+                },
+                scopes: commonScopes,
+                redirectUri: $"{adminClientRootUrl}signin-oidc",
+                clientUri: adminClientRootUrl,
+                postLogoutRedirectUri: $"{adminClientRootUrl}signout-callback-oidc"
+            );
+        }
 
         //Web Client
         var webClientId = configurationSection["PetProjectEcommerce_Web:ClientId"];
@@ -104,99 +143,6 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             );
         }
 
-        //Console Test / Angular Client
-        var consoleAndAngularClientId = configurationSection["PetProjectEcommerce_App:ClientId"];
-        if (!consoleAndAngularClientId.IsNullOrWhiteSpace())
-        {
-            var consoleAndAngularClientRootUrl = configurationSection["PetProjectEcommerce_App:RootUrl"]?.TrimEnd('/');
-            await CreateApplicationAsync(
-                name: consoleAndAngularClientId,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Console Test / Angular Application",
-                secret: null,
-                grantTypes: new List<string>
-                {
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                    OpenIddictConstants.GrantTypes.Password,
-                    OpenIddictConstants.GrantTypes.ClientCredentials,
-                    OpenIddictConstants.GrantTypes.RefreshToken
-                },
-                scopes: commonScopes,
-                redirectUri: consoleAndAngularClientRootUrl,
-                clientUri: consoleAndAngularClientRootUrl,
-                postLogoutRedirectUri: consoleAndAngularClientRootUrl
-            );
-        }
-
-        // Blazor Client
-        var blazorClientId = configurationSection["PetProjectEcommerce_Blazor:ClientId"];
-        if (!blazorClientId.IsNullOrWhiteSpace())
-        {
-            var blazorRootUrl = configurationSection["PetProjectEcommerce_Blazor:RootUrl"].TrimEnd('/');
-
-            await CreateApplicationAsync(
-                name: blazorClientId,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Blazor Application",
-                secret: null,
-                grantTypes: new List<string>
-                {
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                },
-                scopes: commonScopes,
-                redirectUri: $"{blazorRootUrl}/authentication/login-callback",
-                clientUri: blazorRootUrl,
-                postLogoutRedirectUri: $"{blazorRootUrl}/authentication/logout-callback"
-            );
-        }
-
-        // Blazor Server Tiered Client
-        var blazorServerTieredClientId = configurationSection["PetProjectEcommerce_BlazorServerTiered:ClientId"];
-        if (!blazorServerTieredClientId.IsNullOrWhiteSpace())
-        {
-            var blazorServerTieredRootUrl = configurationSection["PetProjectEcommerce_BlazorServerTiered:RootUrl"].EnsureEndsWith('/');
-
-            await CreateApplicationAsync(
-                name: blazorServerTieredClientId,
-                type: OpenIddictConstants.ClientTypes.Confidential,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Blazor Server Application",
-                secret: configurationSection["PetProjectEcommerce_BlazorServerTiered:ClientSecret"] ?? "1q2w3e*",
-                grantTypes: new List<string> //Hybrid flow
-                {
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                    OpenIddictConstants.GrantTypes.Implicit
-                },
-                scopes: commonScopes,
-                redirectUri: $"{blazorServerTieredRootUrl}signin-oidc",
-                clientUri: blazorServerTieredRootUrl,
-                postLogoutRedirectUri: $"{blazorServerTieredRootUrl}signout-callback-oidc"
-            );
-        }
-
-        // Swagger Client
-        var swaggerClientId = configurationSection["PetProjectEcommerce_Swagger:ClientId"];
-        if (!swaggerClientId.IsNullOrWhiteSpace())
-        {
-            var swaggerRootUrl = configurationSection["PetProjectEcommerce_Swagger:RootUrl"].TrimEnd('/');
-
-            await CreateApplicationAsync(
-                name: swaggerClientId,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Swagger Application",
-                secret: null,
-                grantTypes: new List<string>
-                {
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                },
-                scopes: commonScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
-                clientUri: swaggerRootUrl
-            );
-        }
     }
 
     private async Task CreateApplicationAsync(

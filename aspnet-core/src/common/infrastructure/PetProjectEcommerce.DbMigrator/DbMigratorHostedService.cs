@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PetProjectEcommerce.Data;
+using PetProjectEcommerce.Seeding;
 using Serilog;
 using Volo.Abp;
 
@@ -35,6 +36,12 @@ public class DbMigratorHostedService : IHostedService
                 .ServiceProvider
                 .GetRequiredService<PetProjectEcommerceDbMigrationService>()
                 .MigrateAsync();
+
+            await application
+              .ServiceProvider
+              .GetRequiredService<IdentityDataSeeder>()
+              .SeedAsync("dong.orc12@gmail.com", "ABCD@2cba");
+
 
             await application.ShutdownAsync();
 
