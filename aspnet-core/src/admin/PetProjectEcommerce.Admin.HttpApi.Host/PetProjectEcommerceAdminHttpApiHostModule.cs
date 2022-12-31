@@ -104,7 +104,7 @@ public class PetProjectEcommerceAdminHttpApiHostModule : AbpModule
             {
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
-                options.Audience = "PetProjectEcommerce Admin";
+                options.Audience = "PetProjectEcommerce.Admin";
             });
     }
 
@@ -229,7 +229,7 @@ public class PetProjectEcommerceAdminHttpApiHostModule : AbpModule
 
             var configuration = context.GetConfiguration();
             options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
-            options.OAuthScopes("PetProjectEcommerce.Admin");
+            options.OAuthScopes("PetProjectEcommerceAdmin");
         });
 
         app.UseAuditing();
