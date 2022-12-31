@@ -6,21 +6,21 @@ export const environment = {
   production: false,
   application: {
     baseUrl,
-    name: 'PetProjectEcommerce Admin',
+    name: 'PetProjectEcommerce',
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:5000/',
+    issuer: 'https://localhost:44354/',
     redirectUri: baseUrl,
-    clientId: 'PetProjectEcommerce_Admin',
+    clientId: 'PetProjectEcommerce_App',
     responseType: 'code',
-    scope: 'PetProjectEcommerce.Admin offline_access',
+    scope: 'offline_access PetProjectEcommerce',
     requireHttps: true,
   },
   apis: {
     default: {
-      url: 'https://localhost:5001',
-      rootNamespace: 'PetProjectEcommerce.Admin',
+      url: 'https://localhost:44336',
+      rootNamespace: 'PetProjectEcommerce',
     },
   },
 } as Environment;

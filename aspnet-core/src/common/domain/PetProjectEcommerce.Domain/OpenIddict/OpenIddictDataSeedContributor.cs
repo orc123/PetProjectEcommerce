@@ -84,16 +84,9 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             OpenIddictConstants.Permissions.Scopes.Email,
             OpenIddictConstants.Permissions.Scopes.Phone,
             OpenIddictConstants.Permissions.Scopes.Profile,
-            OpenIddictConstants.Permissions.Scopes.Roles
+            OpenIddictConstants.Permissions.Scopes.Roles,
+            "PetProjectEcommerce"
         };
-
-        var adminScopes = new List<string>();
-        adminScopes.AddRange(commonScopes);
-        adminScopes.Add("PetProjectEcommerce.Admin");
-
-        var clientScopes = new List<string>();
-        clientScopes.AddRange(commonScopes);
-        clientScopes.Add("PetProjectEcommerce");
 
         var configurationSection = _configuration.GetSection("OpenIddict:Applications");
 
@@ -101,7 +94,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         var adminClientId = configurationSection["PetProjectEcommerce_Admin:ClientId"];
         if (!adminClientId.IsNullOrWhiteSpace())
         {
-            var adminClientRootUrl = configurationSection["PetProjectEcommerce_Admin:RootUrl"].TrimEnd('/');
+            var adminClientRootUrl = configurationSection["PetProjectEcommerce_Admin:RootUrl"].EnsureEndsWith('/');
 
             /* PetProjectEcommerce_Admin client is only needed if you created a tiered
              * solution. Otherwise, you can delete this client. */
@@ -117,10 +110,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                     OpenIddictConstants.GrantTypes.RefreshToken,
                     OpenIddictConstants.GrantTypes.Implicit
                 },
-                scopes: adminScopes,
-                redirectUri: adminClientRootUrl,
+                scopes: commonScopes,
+                redirectUri: $"{adminClientRootUrl}signin-oidc",
                 clientUri: adminClientRootUrl,
-                postLogoutRedirectUri: adminClientRootUrl
+                postLogoutRedirectUri: $"{adminClientRootUrl}signout-callback-oidc"
             );
         }
 
@@ -143,34 +136,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Implicit
                 },
-                scopes: clientScopes,
+                scopes: commonScopes,
                 redirectUri: $"{webClientRootUrl}signin-oidc",
                 clientUri: webClientRootUrl,
                 postLogoutRedirectUri: $"{webClientRootUrl}signout-callback-oidc"
-            );
-        }
-
-        //Swagger Client
-        var swaggerClient = configurationSection["PetProjectEcommerce_Admin_Swagger:ClientId"];
-        if (!swaggerClient.IsNullOrWhiteSpace())
-        {
-            var swaggerRootUrl = configurationSection["PetProjectEcommerce_Admin_Swagger:RootUrl"].TrimEnd('/');
-
-            /* PetProjectEcommerce_Web client is only needed if you created a tiered
-             * solution. Otherwise, you can delete this client. */
-            await CreateApplicationAsync(
-                name: swaggerClient,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Swagger Admin Application",
-                secret: null,
-                grantTypes: new List<string> //Hybrid flow
-                {
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                },
-                scopes: adminScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
-                clientUri: swaggerRootUrl
             );
         }
 

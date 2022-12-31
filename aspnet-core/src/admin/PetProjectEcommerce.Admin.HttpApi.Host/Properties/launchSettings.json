@@ -3,15 +3,22 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://localhost:5001",
-      "sslPort": 5001
+      "applicationUrl": "https://localhost:44336",
+      "sslPort": 44336
     }
   },
   "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "PetProjectEcommerce.HttpApi.Host": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001",
+      "applicationUrl": "https://localhost:44336",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
