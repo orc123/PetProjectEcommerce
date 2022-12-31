@@ -56,7 +56,7 @@ public class PetProjectEcommerceAuthServerModule : AbpModule
         {
             builder.AddValidation(options =>
             {
-                options.AddAudiences("PetProjectEcommerce");
+                options.AddAudiences("PetProjectEcommerce", "PetProjectEcommerce Admin");
                 options.UseLocalServer();
                 options.UseAspNetCore();
             });
