@@ -10,10 +10,11 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:5000/',
+    issuer: 'https://localhost:5000',
     redirectUri: baseUrl,
     clientId: 'PetProjectEcommerce_Admin',
-    responseType: 'code',
+    dummyClientSecret: "1q2w3e*",
+    responseType: 'password',
     scope: 'PetProjectEcommerce.Admin offline_access',
     requireHttps: true,
   },
