@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'src/app/shared/constants/keys.const';
+import { LoginRequestDto } from 'src/app/shared/models/login-request.dto';
+import { LoginResponseDto } from 'src/app/shared/models/login-response.dto';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -13,11 +19,51 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
         }
     `]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
     valCheck: string[] = ['remember'];
 
     password!: string;
 
-    constructor(public layoutService: LayoutService) { }
+    loginForm: FormGroup;
+
+    constructor(
+        public layoutService: LayoutService,
+        private authService: AuthService,
+        private fb: FormBuilder,
+        private router: Router
+        ) { }
+    
+    ngOnInit(): void {
+        this.initForm();
+    }
+
+    initForm () {
+        this.loginForm = this.fb.group({
+            username: new FormControl('', Validators.required),
+            password: new FormControl('', Validators.required)
+        })
+    }
+
+    onLogin() {
+        this.loginForm.markAsUntouched();
+        if  (!this.loginForm.invalid) 
+            return;
+        
+        var request: LoginRequestDto = {
+            username: this.loginForm.controls["username"].value,
+            password: this.loginForm.controls["password"].value,
+        }
+        this.authService.login(request).subscribe({
+            next: (value: LoginResponseDto) =>{
+                localStorage.setItem(ACCESS_TOKEN, value.access_token);
+                localStorage.setItem(REFRESH_TOKEN, value.refresh_token);
+                this.router.navigate(['']);
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        })
+    }
+
 }
