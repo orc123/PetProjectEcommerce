@@ -27,6 +27,13 @@ public class ProductCategoryService :
         _productCategoryRepository = repository;
     }
 
+    public async Task<List<ProductCategoryIntListDto>> GetListAllAsync()
+    {
+        var query = (await _productCategoryRepository.GetQueryableAsync())
+              .Where(x => x.IsActive);
+        return ObjectMapper.Map<List<ProductCategory>, List<ProductCategoryIntListDto>>(query.ToList());
+    }
+
     public async Task<PagedResultDto<ProductCategoryIntListDto>> GetListFilterAsync(BaseListFilterDto input)
     {
         var query = await _productCategoryRepository.GetQueryableAsync();

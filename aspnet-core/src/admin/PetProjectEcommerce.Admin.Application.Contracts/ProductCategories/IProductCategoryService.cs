@@ -11,4 +11,6 @@ public interface IProductCategoryService :
     ICrudAppService<ProductCategoryDto, Guid, PagedResultRequestDto, CreateUpdateProductCategoryDto>
 {
     Task<PagedResultDto<ProductCategoryIntListDto>> GetListFilterAsync(BaseListFilterDto input);
+    Task<List<ProductCategoryIntListDto>> GetListAllAsync();
+
 }
