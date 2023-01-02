@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from 'src/app/shared/constants/keys.const';
 import { LoginRequestDto } from 'src/app/shared/models/login-request.dto';
@@ -19,7 +20,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
         }
     `]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+    private ngUnsubscribe = new Subject<void>();
 
     valCheck: string[] = ['remember'];
 
@@ -47,23 +50,30 @@ export class LoginComponent implements OnInit {
 
     onLogin() {
         this.loginForm.markAsUntouched();
-        if  (!this.loginForm.invalid) 
+        if  (!this.loginForm.valid) 
             return;
         
         var request: LoginRequestDto = {
             username: this.loginForm.controls["username"].value,
             password: this.loginForm.controls["password"].value,
         }
-        this.authService.login(request).subscribe({
-            next: (value: LoginResponseDto) =>{
-                localStorage.setItem(ACCESS_TOKEN, value.access_token);
-                localStorage.setItem(REFRESH_TOKEN, value.refresh_token);
-                this.router.navigate(['']);
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        })
+        this.authService
+            .login(request)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe({
+                next: (value: LoginResponseDto) =>{
+                    localStorage.setItem(ACCESS_TOKEN, value.access_token);
+                    localStorage.setItem(REFRESH_TOKEN, value.refresh_token);
+                    this.router.navigate(['']);
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            })
     }
-
+    
+    ngOnDestroy(): void {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+      }
 }
