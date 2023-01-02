@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using PetProjectEcommerce.Admin.ProductCategories;
+using PetProjectEcommerce.Admin.Products;
 using PetProjectEcommerce.ProductCategories;
+using PetProjectEcommerce.Products;
 
 namespace PetProjectEcommerce.Admin;
 
@@ -15,5 +17,11 @@ public class PetProjectEcommerceAdminApplicationAutoMapperProfile : Profile
         CreateMap<ProductCategory, ProductCategoryDto>();
         CreateMap<ProductCategory, ProductCategoryIntListDto>();
         CreateMap<CreateUpdateProductCategoryDto, ProductCategory>();
+
+
+        CreateMap<Product, ProductDto>();
+        CreateMap<Product, ProductIntListDto>();
+        CreateMap<CreateUpdateProductDto, Product>();
+
     }
 }
