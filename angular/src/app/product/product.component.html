@@ -3,29 +3,41 @@
     <div class="grid">
         <div class="col-4">4</div>
         <div class="col-8">8</div>
-      </div>
+    </div>
     <!--Table-->
-    <p-table #pnl [value]="items$ | async">
+    <p-table #pnl [value]="(listPaging$ | async)?.items">
         <ng-template pTemplate="header">
             <tr>
-                <th>Vin</th>
-                <th>Year</th>
-                <th>Brand</th>
-                <th>Color</th>
+                <th>Mã</th>
+                <th>SKU</th>
+                <th>Tên</th>
+                <th>Loại</th>
+                <th>Tên danh mục</th>
+                <th>Thứ tự</th>
+                <th>Hiện thị</th>
+                <th>Kích hoạt</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td>{{car.vin}}</td>
-                <td>{{car.year}}</td>
-                <td>{{car.brand}}</td>
-                <td>{{car.color}}</td>
+                <td>{{ row.code }}</td>
+                <td>{{ row.sku }}</td>
+                <td>{{ row.name }}</td>
+                <td>{{ row.productType }}</td>
+                <td>{{ row.categoryId }}</td>
+                <td>{{ row.sortOrder }}</td>
+                <td>{{ row.visibility }}</td>
+                <td>{{ row.isActive }}</td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div style="text-align: left">Tổng số bản ghi: {{ (listPaging$ | async)?.totalCount }}</div>
         </ng-template>
     </p-table>
 
     <!--Paginator-->
-    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+    <p-paginator [rows]="maxResultCount" [totalRecords]="(listPaging$ | async)?.totalCount" (onPageChange)="pageChanged($event)"
+        [rowsPerPageOptions]="[10, 20, 30, 50, 100]"></p-paginator>
     <!--Block UI-->
     <p-blockUI [blocked]="blockedPanel" [target]="pnl"></p-blockUI>
 </p-panel>
