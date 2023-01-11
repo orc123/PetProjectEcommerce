@@ -1,6 +1,7 @@
 import { PagedResultDto } from "@abp/ng.core";
 import { Component, OnInit } from "@angular/core";
 import { ProductDto, ProductIntListDto, ProductService } from "@proxy/products";
+import { ProductCategoryService, ProductCategoryIntListDto } from '@proxy/product-categories';
 import { Observable } from "rxjs";
 
 
@@ -17,22 +18,42 @@ export class ProductComponent implements OnInit {
     public skipCount: number = 0;
     public maxResultCount: number = 10;
 
+    //Filter
+    productCategories: any[] = [];
+    keyword: string = '';
+    categoryId: string = '';
+
     constructor(
-        private _productService: ProductService
+        private _productService: ProductService,
+        private _productCategoryService: ProductCategoryService
     ) {
 
     }
 
     ngOnInit(): void {
         this.loadData();
+        this.loadProductCategories();
     }
 
     loadData() {
         this.listPaging$ = this._productService.getListFilter({
-            keyword: '',
+            keyword: this.keyword,
             maxResultCount: this.maxResultCount,
-            skipCount: this.skipCount
+            skipCount: this.skipCount,
+            categoryId: this.categoryId
         });
+    }
+
+    loadProductCategories() {
+        this._productCategoryService.getListAll()
+            .subscribe((response: ProductCategoryIntListDto[]) => {
+                response.forEach(element => {
+                    this.productCategories.push({
+                        value: element.id,
+                        name: element.name
+                    })
+                });
+            });
     }
 
     pageChanged(event: any): void {

@@ -10,6 +10,6 @@ namespace PetProjectEcommerce.Admin.Products;
 public interface IProductService :
     ICrudAppService<ProductDto, Guid, PagedResultRequestDto, CreateUpdateProductDto>
 {
-    Task<PagedResultDto<ProductIntListDto>> GetListFilterAsync(BaseListFilterDto input);
+    Task<PagedResultDto<ProductIntListDto>> GetListFilterAsync(ProductListFilterDto input);
     Task<List<ProductIntListDto>> GetListAllAsync();
 }
