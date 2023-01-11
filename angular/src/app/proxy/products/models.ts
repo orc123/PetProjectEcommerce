@@ -1,5 +1,6 @@
 import type { ProductType } from '../pet-project-ecommerce/products/product-type.enum';
 import type { EntityDto } from '@abp/ng.core';
+import type { BaseListFilterDto } from '../models';
 
 export interface CreateUpdateProductDto {
   manufacturerId?: string;
@@ -46,4 +47,8 @@ export interface ProductIntListDto extends EntityDto<string> {
   isActive: boolean;
   categoryId?: string;
   thumbnailPicture?: string;
+}
+
+export interface ProductListFilterDto extends BaseListFilterDto {
+  categoryId?: string;
 }

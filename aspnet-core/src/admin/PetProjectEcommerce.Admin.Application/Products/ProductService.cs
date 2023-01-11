@@ -33,12 +33,13 @@ public class ProductService :
         return ObjectMapper.Map<List<Product>, List<ProductIntListDto>>(query.ToList());
     }
 
-    public async Task<PagedResultDto<ProductIntListDto>> GetListFilterAsync(BaseListFilterDto input)
+    public async Task<PagedResultDto<ProductIntListDto>> GetListFilterAsync(ProductListFilterDto input)
     {
         var query = await _productRepository.GetQueryableAsync();
 
         query = query
-            .WhereIf(!string.IsNullOrEmpty(input.Keyword), x => x.Name.Contains(input.Keyword));
+            .WhereIf(!string.IsNullOrEmpty(input.Keyword), x => x.Name.Contains(input.Keyword))
+            .WhereIf(input.CategoryId.HasValue, x => x.CategoryId == input.CategoryId.Value);
         var total = query.Count();
 
         var data = query.Skip(input.SkipCount)
