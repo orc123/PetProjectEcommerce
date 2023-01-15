@@ -2,7 +2,7 @@ import { PagedResultDto } from "@abp/ng.core";
 import { Component, OnInit } from "@angular/core";
 import { ProductDto, ProductIntListDto, ProductService } from "@proxy/products";
 import { ProductCategoryService, ProductCategoryIntListDto } from '@proxy/product-categories';
-import { Observable } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 
 
 @Component({
@@ -36,29 +36,41 @@ export class ProductComponent implements OnInit {
     }
 
     loadData() {
+        this.toggleBlockUI(true)
         this.listPaging$ = this._productService.getListFilter({
             keyword: this.keyword,
             maxResultCount: this.maxResultCount,
             skipCount: this.skipCount,
             categoryId: this.categoryId
         });
+
+        this.toggleBlockUI(false)
     }
 
-    loadProductCategories() {
-        this._productCategoryService.getListAll()
-            .subscribe((response: ProductCategoryIntListDto[]) => {
-                response.forEach(element => {
-                    this.productCategories.push({
-                        value: element.id,
-                        name: element.name
-                    })
-                });
-            });
+    async loadProductCategories() {
+        var result = await firstValueFrom(this._productCategoryService.getListAll());
+
+        result.forEach(element => {
+            this.productCategories.push({
+                value: element.id,
+                name: element.name
+            })
+        });
     }
 
     pageChanged(event: any): void {
         this.skipCount = (event.page - 1) * this.maxResultCount;
         this.maxResultCount = event.rows;
         this.loadData();
+    }
+
+    private toggleBlockUI(enabled: boolean) {
+        if (enabled == true) {
+            this.blockedPanel = true;
+        } else {
+            setTimeout(() => {
+                this.blockedPanel = false;
+            }, 1000);
+        }
     }
 }
