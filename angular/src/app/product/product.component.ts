@@ -3,6 +3,9 @@ import { Component, OnInit } from "@angular/core";
 import { ProductDto, ProductIntListDto, ProductService } from "@proxy/products";
 import { ProductCategoryService, ProductCategoryIntListDto } from '@proxy/product-categories';
 import { firstValueFrom, Observable } from "rxjs";
+import { DialogService } from "primeng/dynamicdialog";
+import { ProductDetailComponent } from "./product-detail/product-detail.component";
+import { NotificationService } from "../shared/services/notification.service";
 
 
 @Component({
@@ -25,7 +28,9 @@ export class ProductComponent implements OnInit {
 
     constructor(
         private _productService: ProductService,
-        private _productCategoryService: ProductCategoryService
+        private _productCategoryService: ProductCategoryService,
+        private _dialogService: DialogService,
+        private _notificationService: NotificationService
     ) {
 
     }
@@ -55,6 +60,20 @@ export class ProductComponent implements OnInit {
                 value: element.id,
                 name: element.name
             })
+        });
+    }
+
+    showModal() {
+       const ref = this._dialogService.open(ProductDetailComponent, {
+            header: 'Thêm mới sản phẩm',
+            width: '70%'
+        });
+
+        ref.onClose.subscribe((data: ProductDto)=> {
+            if (data) {
+                this.loadData(); 
+                this._notificationService.showSuccess("Thêm mới thành công");
+            }  
         });
     }
 
