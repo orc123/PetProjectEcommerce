@@ -10,12 +10,14 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { APP_ROUTE_PROVIDER } from './route.provider';
+import { NotificationService } from './shared/services/notification.service';
 
 @NgModule({
   imports: [
@@ -27,16 +29,16 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
       environment,
       registerLocaleFn: registerLocale(),
     }),
-    //ThemeSharedModule.forRoot(),
+    ThemeSharedModule.forRoot(),
     AccountConfigModule.forRoot(),
     IdentityConfigModule.forRoot(),
     TenantManagementConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
-    // ThemeLeptonXModule.forRoot(),
-    // SideMenuLayoutModule.forRoot(),
+    ThemeLeptonXModule.forRoot(),
+    SideMenuLayoutModule.forRoot(),
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER, DialogService],
+  providers: [APP_ROUTE_PROVIDER, DialogService, NotificationService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

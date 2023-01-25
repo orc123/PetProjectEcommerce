@@ -1,8 +1,8 @@
 import { PagedResultDto } from "@abp/ng.core";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ProductDto, ProductIntListDto, ProductService } from "@proxy/products";
 import { ProductCategoryService, ProductCategoryIntListDto } from '@proxy/product-categories';
-import { firstValueFrom, Observable } from "rxjs";
+import { firstValueFrom, Observable, Subject, takeUntil } from "rxjs";
 import { DialogService } from "primeng/dynamicdialog";
 import { ProductDetailComponent } from "./product-detail/product-detail.component";
 import { NotificationService } from "../shared/services/notification.service";
@@ -13,7 +13,8 @@ import { NotificationService } from "../shared/services/notification.service";
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
+    private ngUnsubscribe = new Subject<void>();
     blockedPanel: boolean = false;
     listPaging$: Observable<PagedResultDto<ProductIntListDto>>;
 
@@ -47,13 +48,17 @@ export class ProductComponent implements OnInit {
             maxResultCount: this.maxResultCount,
             skipCount: this.skipCount,
             categoryId: this.categoryId
-        });
+        })
+        .pipe(takeUntil(this.ngUnsubscribe));
 
         this.toggleBlockUI(false)
     }
 
     async loadProductCategories() {
-        var result = await firstValueFrom(this._productCategoryService.getListAll());
+        var result = await firstValueFrom(
+            this._productCategoryService.getListAll()
+            .pipe(takeUntil(this.ngUnsubscribe))
+        );
 
         result.forEach(element => {
             this.productCategories.push({
@@ -91,5 +96,10 @@ export class ProductComponent implements OnInit {
                 this.blockedPanel = false;
             }, 1000);
         }
+    }
+
+    ngOnDestroy(): void {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
     }
 }

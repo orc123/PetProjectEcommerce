@@ -13,6 +13,7 @@ export interface CreateUpdateProductDto {
   sortOrder: number;
   visibility: boolean;
   isActive: boolean;
+  sellPrice: number;
   categoryId?: string;
   seoMetaDescription?: string;
   thumbnailPicture?: string;
@@ -32,6 +33,7 @@ export interface ProductDto extends EntityDto<string> {
   categoryId?: string;
   seoMetaDescription?: string;
   thumbnailPicture?: string;
+  sellPrice: number;
 }
 
 export interface ProductIntListDto extends EntityDto<string> {
