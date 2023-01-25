@@ -22,6 +22,8 @@ public class ProductDto : EntityDto<Guid>
     public string SeoMetaDescription { get; set; }
     public string ThumbnailPicture { get; set; }
 
+    public double SellPrice { get; set; }
+
     //public virtual ProductCategory ProductCategory { get; set; }
     //public virtual Manufacturer Manufacturer { get; set; }
     //public virtual ICollection<Inventory> Inventories { get; set; }

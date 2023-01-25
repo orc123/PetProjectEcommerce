@@ -12,6 +12,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { DynamicDialogModule } from "primeng/dynamicdialog";
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { EditorModule } from 'primeng/editor';
 
 @NgModule({
     declarations: [
@@ -29,7 +33,14 @@ import { DynamicDialogModule } from "primeng/dynamicdialog";
         DropdownModule,
         InputTextModule,
         ProgressSpinnerModule,
-        DynamicDialogModule
+        DynamicDialogModule,
+        InputNumberModule,
+        CheckboxModule,
+        InputTextareaModule,
+        EditorModule
     ],
+    entryComponents: [
+        ProductDetailComponent
+    ]
 })
 export class ProductModule { }
