@@ -16,6 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { EditorModule } from 'primeng/editor';
+import { Shared2Module } from '../shared/modules/shared.module';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { EditorModule } from 'primeng/editor';
         InputNumberModule,
         CheckboxModule,
         InputTextareaModule,
-        EditorModule
+        EditorModule,
+        Shared2Module
     ],
     entryComponents: [
         ProductDetailComponent
