@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit, OnDestroy {
             skipCount: this.skipCount,
             categoryId: this.categoryId
         })
-        .pipe(takeUntil(this.ngUnsubscribe));
+            .pipe(takeUntil(this.ngUnsubscribe));
 
         this.toggleBlockUI(false)
     }
@@ -57,7 +57,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     async loadProductCategories() {
         var result = await firstValueFrom(
             this._productCategoryService.getListAll()
-            .pipe(takeUntil(this.ngUnsubscribe))
+                .pipe(takeUntil(this.ngUnsubscribe))
         );
 
         result.forEach(element => {
@@ -70,16 +70,33 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     showModal() {
-       const ref = this._dialogService.open(ProductDetailComponent, {
+        const ref = this._dialogService.open(ProductDetailComponent, {
             header: 'Thêm mới sản phẩm',
             width: '70%'
         });
 
-        ref.onClose.subscribe((data: ProductDto)=> {
+        ref.onClose.subscribe((data: ProductDto) => {
             if (data) {
-                this.loadData(); 
+                this.loadData();
                 this._notificationService.showSuccess("Thêm mới thành công");
-            }  
+            }
+        });
+    }
+
+    showEditModal(row) {
+        const ref = this._dialogService.open(ProductDetailComponent, {
+            data: {
+                id: row.id
+            },
+            header: 'Cập nhật sản phẩm',
+            width: '70%'
+        });
+
+        ref.onClose.subscribe((data: ProductDto) => {
+            if (data) {
+                this.loadData();
+                this._notificationService.showSuccess("Cập nhật sản phẩm thành công");
+            }
         });
     }
 

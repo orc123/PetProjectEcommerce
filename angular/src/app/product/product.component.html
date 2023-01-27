@@ -2,7 +2,8 @@
     <!--Filter (search panel)-->
     <div class="grid">
         <div class="col-4">
-            <button pButton (click)="showModal()" type="button" icon="fa fa-plus" iconPos="left" label="Thêm mới"></button>
+            <button pButton (click)="showModal()" type="button" icon="fa fa-plus" iconPos="left"
+                label="Thêm mới"></button>
         </div>
         <div class="col-8">
             <div class="formgroup-inline">
@@ -31,9 +32,10 @@
                 <th>Thứ tự</th>
                 <th>Hiện thị</th>
                 <th>Kích hoạt</th>
+                <th>Hành động</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item>
+        <ng-template pTemplate="body" let-row>
             <tr>
                 <td>{{ row.code }}</td>
                 <td>{{ row.sku }}</td>
@@ -41,8 +43,18 @@
                 <td>{{ row.productType }}</td>
                 <td>{{ row.categoryId }}</td>
                 <td>{{ row.sortOrder }}</td>
-                <td>{{ row.visibility }}</td>
-                <td>{{ row.isActive }}</td>
+                <td>
+                    <p-badge *ngIf="row.visibility == 1" severity="success" value="Hiển thị"></p-badge>
+                    <p-badge *ngIf="row.visibility == 0" severity="danger" value="Ẩn"></p-badge>
+                </td>
+                <td>
+                    <p-badge *ngIf="row.isActive == 1" value="Kích hoạt" severity="success"></p-badge>
+                    <p-badge *ngIf="row.isActive == 0" value="Khoá" severity="danger"></p-badge>
+                </td>
+                <td>
+                    <button type="button" class="ml-1 p-button-help" pButton (click)="showEditModal(row)"
+                        icon="fa fa-edit" iconPos="left" label="Cập nhật"></button>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

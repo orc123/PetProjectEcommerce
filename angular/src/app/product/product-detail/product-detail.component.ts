@@ -75,10 +75,37 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.loadData();
         this.toggleBlockUI(false);
     }
+
     saveChange() {
-
-
+        this.toggleBlockUI(true);
+        if (this.config.data?.id) {
+            this._productService.update(this.config.data?.id, this.form.value)
+                .pipe(takeUntil(this.ngUnsubscribe))
+                .subscribe({
+                    next: value => {
+                        this.toggleBlockUI(false);
+                        this.ref.close(value);
+                    },
+                    error: (err) => {
+                        this.toggleBlockUI(false)
+                    }
+                });
+        }
+        else {
+            this._productService.create(this.form.value)
+                .pipe(takeUntil(this.ngUnsubscribe))
+                .subscribe({
+                    next: value => {
+                        this.toggleBlockUI(false);
+                        this.ref.close(value);
+                    },
+                    error: (err) => {
+                        this.toggleBlockUI(false)
+                    }
+                });
+        }
     }
+
     async loadProductCategories() {
         var result = await firstValueFrom(
             this._productCategoryService.getListAll()
