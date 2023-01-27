@@ -29,14 +29,16 @@
             <div class="field col-12">
                 <label for="manufacturerId" class="block">Nhà sản xuất <span class="required">*</span></label>
                 <p-dropdown [options]="manufacturers" formControlName="manufacturerId" placeholder="Chọn nhà sản xuất"
-                    [showClear]="true" autoWidth="false" [style]="{ width: '100%' }"></p-dropdown>
+                    optionLabel="name" optionValue="value" [showClear]="true" autoWidth="false"
+                    [style]="{ width: '100%' }"></p-dropdown>
                 <app-validation-message [entityForm]="form" fieldName="manufacturerId"
                     [validationMessages]="validationMessages"></app-validation-message>
             </div>
             <div class="field col-12">
                 <label for="categoryId" class="block">Danh mục <span class="required">*</span></label>
                 <p-dropdown [options]="productCategories" formControlName="categoryId" placeholder="Chọn danh mục"
-                    [showClear]="true" autoWidth="false" [style]="{ width: '100%' }"></p-dropdown>
+                    optionLabel="name" optionValue="value" [showClear]="true" autoWidth="false"
+                    [style]="{ width: '100%' }"></p-dropdown>
                 <app-validation-message [entityForm]="form" fieldName="categoryId"
                     [validationMessages]="validationMessages"></app-validation-message>
             </div>

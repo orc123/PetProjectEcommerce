@@ -12,6 +12,7 @@
                 </div>
                 <div class="field">
                     <p-dropdown [options]="productCategories" [(ngModel)]="categoryId"
+                        optionLabel="name" optionValue="value"
                         placeholder="Chọn danh mục"></p-dropdown>
                 </div>
                 <button type="button" pButton (click)="loadData()" icon="fa fa-search" iconPos="left"

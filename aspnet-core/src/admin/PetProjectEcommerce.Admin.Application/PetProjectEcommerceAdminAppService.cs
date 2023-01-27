@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using PetProjectEcommerce.Localization;
-using Volo.Abp.Application.Services;
+﻿using PetProjectEcommerce.Localization;
 
 namespace PetProjectEcommerce.Admin;
 

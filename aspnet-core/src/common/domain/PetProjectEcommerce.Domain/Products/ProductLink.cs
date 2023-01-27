@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
-namespace PetProjectEcommerce.Products
+namespace PetProjectEcommerce.Products;
+
+public class ProductLink : Entity
 {
-    public class ProductLink : Entity
+    public Guid ProductId { get; set; }
+    public Guid LinkedProductId { get; set; }
+    public override object[] GetKeys()
     {
-        public Guid ProductId { get; set; }
-        public Guid LinkedProductId { get; set; }
-        public override object[] GetKeys()
-        {
-            return new object[] { ProductId, LinkedProductId };
-        }
-        public virtual Product Product { get; set; }
+        return new object[] { ProductId, LinkedProductId };
     }
+    public virtual Product Product { get; set; }
 }

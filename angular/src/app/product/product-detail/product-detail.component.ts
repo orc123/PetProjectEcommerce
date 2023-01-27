@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { ManufacturerInListDto, ManufacturerService } from "@proxy/manufacturers";
 import { ProductCategoryIntListDto, ProductCategoryService } from "@proxy/product-categories";
 import { ProductDto, ProductService } from "@proxy/products";
-import { Subject, takeUntil } from "rxjs";
+import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: 'app-product-detail',
@@ -24,6 +25,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     constructor(
         private _productService: ProductService,
         private _productCategoryService: ProductCategoryService,
+        private _manufacturerService: ManufacturerService,
         private fb: FormBuilder
     ) { }
 
@@ -45,37 +47,49 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void { }
 
     ngOnInit(): void {
+        this.loadProductCategories();
+        this.loadManufacturers();
         this.buildForm();
     }
 
-    loadFormDetails(id: string) {
+    async loadFormDetails(id: string) {
         this.toggleBlockUI(true);
-        this._productService
-            .get(id)
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe({
-                next: (response: ProductDto) => {
-                    this.selectedEntity = response;
-                    this.buildForm();
-                    this.toggleBlockUI(false);
-                },
-                error: () => {
-                    this.toggleBlockUI(false);
-                },
-            });
+        this.selectedEntity = await firstValueFrom(
+            this._productService.get(id).pipe(takeUntil(this.ngUnsubscribe))
+        );
+
+        this.buildForm();
+        this.toggleBlockUI(false);
     }
     saveChange() {
 
 
     }
-    loadProductCategories() {
-        this._productCategoryService.getListAll().subscribe((response: ProductCategoryIntListDto[]) => {
-            response.forEach(element => {
-                this.productCategories.push({
-                    value: element.id,
-                    name: element.name,
-                });
-            });
+    async loadProductCategories() {
+        var result = await firstValueFrom(
+            this._productCategoryService.getListAll()
+            .pipe(takeUntil(this.ngUnsubscribe))
+        );
+
+        result.forEach(element => {
+            this.productCategories.push({
+                value: element.id,
+                name: element.name
+            })
+        });
+    }
+
+    async loadManufacturers() {
+        var result = await firstValueFrom(
+            this._manufacturerService.getListAll()
+            .pipe(takeUntil(this.ngUnsubscribe))
+        );
+            debugger;
+        result.forEach(element => {
+            this.manufacturers.push({
+                value: element.id,
+                name: element.name
+            })
         });
     }
 

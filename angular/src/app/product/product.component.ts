@@ -66,6 +66,7 @@ export class ProductComponent implements OnInit, OnDestroy {
                 name: element.name
             })
         });
+
     }
 
     showModal() {
