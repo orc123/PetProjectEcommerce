@@ -1,0 +1,14 @@
+﻿global using AutoMapper;
+global using PetProjectEcommerce.Admin.Manufacturers;
+global using PetProjectEcommerce.Admin.ProductCategories;
+global using PetProjectEcommerce.Admin.Products;
+global using PetProjectEcommerce.Manufacturers;
+global using PetProjectEcommerce.ProductCategories;
+global using PetProjectEcommerce.Products;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Threading.Tasks;
+global using Volo.Abp.Application.Dtos;
+global using Volo.Abp.Application.Services;
+global using Volo.Abp.Domain.Repositories;

@@ -1,12 +1,10 @@
-﻿using PetProjectEcommerce.Products;
-using PetProjectEcommerce.Promotions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Volo.Abp.Domain.Entities.Auditing;
+using System.Text;
 
-namespace PetProjectEcommerce.Manufacturers;
+namespace PetProjectEcommerce.Admin.Manufacturers;
 
-public class Manufacturer : CreationAuditedAggregateRoot<Guid>
+public class CreateUpdateManufacturer
 {
     public string Name { get; set; }
     public string Code { get; set; }
@@ -15,5 +13,4 @@ public class Manufacturer : CreationAuditedAggregateRoot<Guid>
     public bool Visibility { get; set; }
     public bool IsActive { get; set; }
     public string Country { get; set; }
-    public virtual ICollection<Product> Products { get; set; }
 }

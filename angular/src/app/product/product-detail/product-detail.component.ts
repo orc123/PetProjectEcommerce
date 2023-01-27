@@ -1,8 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { ManufacturerInListDto, ManufacturerService } from "@proxy/manufacturers";
+import { productTypeOptions } from "@proxy/pet-project-ecommerce/products";
 import { ProductCategoryIntListDto, ProductCategoryService } from "@proxy/product-categories";
 import { ProductDto, ProductService } from "@proxy/products";
-import { Subject, takeUntil } from "rxjs";
+import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import { firstValueFrom, Subject, takeUntil } from "rxjs";
+import { UtilityService } from "src/app/shared/services/utility.service";
 
 @Component({
     selector: 'app-product-detail',
@@ -24,7 +28,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     constructor(
         private _productService: ProductService,
         private _productCategoryService: ProductCategoryService,
-        private fb: FormBuilder
+        private _manufacturerService: ManufacturerService,
+        private _utilityService: UtilityService,
+        private fb: FormBuilder,
+        public ref: DynamicDialogRef,
+        public config: DynamicDialogConfig
     ) { }
 
     validationMessages = {
@@ -45,59 +53,104 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void { }
 
     ngOnInit(): void {
+        this.loadProductCategories();
+        this.loadManufacturers();
+        this.loadProductTypes();
         this.buildForm();
+        if (this.config.data?.id)
+            this.loadFormDetails(this.config.data?.id);
+
     }
 
-    loadFormDetails(id: string) {
+    generateSlug() {
+        this.form.controls['slug'].setValue(this._utilityService.MakeSeoTitle(this.form.get('name').value));
+    }
+
+    async loadFormDetails(id: string) {
         this.toggleBlockUI(true);
-        this._productService
-            .get(id)
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe({
-                next: (response: ProductDto) => {
-                    this.selectedEntity = response;
-                    this.buildForm();
-                    this.toggleBlockUI(false);
-                },
-                error: () => {
-                    this.toggleBlockUI(false);
-                },
-            });
+        this.selectedEntity = await firstValueFrom(
+            this._productService.get(id).pipe(takeUntil(this.ngUnsubscribe))
+        );
+
+        this.loadData();
+        this.toggleBlockUI(false);
     }
     saveChange() {
 
 
     }
-    loadProductCategories() {
-        this._productCategoryService.getListAll().subscribe((response: ProductCategoryIntListDto[]) => {
-            response.forEach(element => {
-                this.productCategories.push({
-                    value: element.id,
-                    name: element.name,
-                });
+    async loadProductCategories() {
+        var result = await firstValueFrom(
+            this._productCategoryService.getListAll()
+                .pipe(takeUntil(this.ngUnsubscribe))
+        );
+
+        result.forEach(element => {
+            this.productCategories.push({
+                value: element.id,
+                label: element.name
+            })
+        });
+    }
+
+    async loadManufacturers() {
+        var result = await firstValueFrom(
+            this._manufacturerService.getListAll()
+                .pipe(takeUntil(this.ngUnsubscribe))
+        );
+        result.forEach(element => {
+            this.manufacturers.push({
+                value: element.id,
+                label: element.name
+            })
+        });
+    }
+
+    loadProductTypes() {
+        productTypeOptions.forEach(element => {
+            this.productTypes.push({
+                value: element.value,
+                label: element.key,
             });
         });
     }
 
     private buildForm() {
         this.form = this.fb.group({
-            name: new FormControl(this.selectedEntity.name || null, Validators.compose([
+            name: new FormControl(null, Validators.compose([
                 Validators.required,
                 Validators.maxLength(250)
             ])),
-            code: new FormControl(this.selectedEntity.code || null, Validators.required),
-            slug: new FormControl(this.selectedEntity.slug || null, Validators.required),
-            sku: new FormControl(this.selectedEntity.sku || null, Validators.required),
-            manufacturerId: new FormControl(this.selectedEntity.manufacturerId || null, Validators.required),
-            categoryId: new FormControl(this.selectedEntity.categoryId || null, Validators.required),
-            productType: new FormControl(this.selectedEntity.productType || null, Validators.required),
-            sortOrder: new FormControl(this.selectedEntity.sortOrder || null, Validators.required),
-            sellPrice: new FormControl(this.selectedEntity.sellPrice || null, Validators.required),
-            visibility: new FormControl(this.selectedEntity.visibility || true),
-            isActive: new FormControl(this.selectedEntity.isActive || true),
-            seoMetaDescription: new FormControl(this.selectedEntity.seoMetaDescription || null),
-            description: new FormControl(this.selectedEntity.description || null),
+            code: new FormControl(null, Validators.required),
+            slug: new FormControl(null, Validators.required),
+            sku: new FormControl(null, Validators.required),
+            manufacturerId: new FormControl(null, Validators.required),
+            categoryId: new FormControl(null, Validators.required),
+            productType: new FormControl(null, Validators.required),
+            sortOrder: new FormControl(null, Validators.required),
+            sellPrice: new FormControl(null, Validators.required),
+            visibility: new FormControl(true),
+            isActive: new FormControl(true),
+            seoMetaDescription: new FormControl(null),
+            description: new FormControl(null),
+        });
+    }
 
+    private loadData() {
+        this.form.patchValue({
+            name: this.selectedEntity.name,
+            code: this.selectedEntity.code,
+            slug: this.selectedEntity.slug,
+            sku: this.selectedEntity.sku,
+            manufacturerId: this.selectedEntity.manufacturerId,
+            categoryId: this.selectedEntity.categoryId,
+            productType: this.selectedEntity.productType,
+            sortOrder: this.selectedEntity.sortOrder,
+            sellPrice: this.selectedEntity.sellPrice,
+            visibility: this.selectedEntity.visibility,
+            isActive: this.selectedEntity.isActive,
+            seoMetaDescription: this.selectedEntity.seoMetaDescription,
+            description: this.selectedEntity.description,
         });
     }
 

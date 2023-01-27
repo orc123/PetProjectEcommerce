@@ -63,9 +63,10 @@ export class ProductComponent implements OnInit, OnDestroy {
         result.forEach(element => {
             this.productCategories.push({
                 value: element.id,
-                name: element.name
+                label: element.name
             })
         });
+
     }
 
     showModal() {
