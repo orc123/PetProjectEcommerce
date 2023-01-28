@@ -10,6 +10,15 @@ public class ProductRepository :
     {
     }
 
+    public async Task<List<Product>> GetProducts()
+    {
+        var dbSet = await GetDbSetAsync();
+        var query = dbSet
+            .Include(x => x.ProductCategory)
+            .Where(x => x.IsActive);
+        return await query.ToListAsync();
+    }
+
     public async Task<(int, List<Product>)> GetPagedProducts(Guid? categoryId, string keyword, int skipCount, int maxResultCount)
     {
         var dbSet = await GetDbSetAsync();

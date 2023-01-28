@@ -6,6 +6,7 @@ import { ProductCategoryIntListDto, ProductCategoryService } from "@proxy/produc
 import { ProductDto, ProductService } from "@proxy/products";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
+import { NotificationService } from "src/app/shared/services/notification.service";
 import { UtilityService } from "src/app/shared/services/utility.service";
 
 @Component({
@@ -30,6 +31,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         private _productCategoryService: ProductCategoryService,
         private _manufacturerService: ManufacturerService,
         private _utilityService: UtilityService,
+        private _notificationService: NotificationService,
         private fb: FormBuilder,
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig
@@ -87,6 +89,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                         this.ref.close(value);
                     },
                     error: (err) => {
+                        this._notificationService.showError(err.error.error.message);
                         this.toggleBlockUI(false)
                     }
                 });
@@ -100,6 +103,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                         this.ref.close(value);
                     },
                     error: (err) => {
+                        this._notificationService.showError(err.error.error.message);
                         this.toggleBlockUI(false)
                     }
                 });

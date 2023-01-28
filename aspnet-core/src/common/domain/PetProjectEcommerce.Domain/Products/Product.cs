@@ -14,6 +14,44 @@ namespace PetProjectEcommerce.Products;
 
 public class Product : AuditedAggregateRoot<Guid>
 {
+    public Product()
+    {
+
+    }
+    public Product(
+        Guid id,
+        Guid manufacturerId, 
+        string name, 
+        string code, 
+        string description, 
+        ProductType productType, 
+        string sKU, 
+        string slug, 
+        int sortOrder, 
+        bool visibility, 
+        bool isActive, 
+        Guid categoryId, 
+        string seoMetaDescription, 
+        string thumbnailPicture,
+        double sellPrice)
+    {
+        Id = id;
+        ManufacturerId = manufacturerId;
+        Name = name;
+        Code = code;
+        Description = description;
+        ProductType = productType;
+        SKU = sKU;
+        Slug = slug;
+        SortOrder = sortOrder;
+        Visibility = visibility;
+        IsActive = isActive;
+        CategoryId = categoryId;
+        SeoMetaDescription = seoMetaDescription;
+        ThumbnailPicture = thumbnailPicture;
+        SellPrice = sellPrice;
+    }
+
     public Guid ManufacturerId { get; set; }
     public string Name { get; set; }
     public string Code { get; set; }
