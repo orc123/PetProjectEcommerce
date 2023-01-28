@@ -20,7 +20,8 @@ public class CreateUpdateProductDto
     public double SellPrice { get; set; }
     public Guid CategoryId { get; set; }
     public string SeoMetaDescription { get; set; }
-    public string ThumbnailPicture { get; set; }
+    public string ThumbnailPictureName { get; set; }
+    public string ThumbnailPictureContent { get; set; }
 
     //public virtual ProductCategory ProductCategory { get; set; }
     //public virtual Manufacturer Manufacturer { get; set; }

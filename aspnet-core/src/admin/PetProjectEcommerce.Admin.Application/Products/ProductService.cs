@@ -1,4 +1,6 @@
-﻿using Volo.Abp;
+﻿using System.Text.RegularExpressions;
+using Volo.Abp;
+using Volo.Abp.BlobStoring;
 
 namespace PetProjectEcommerce.Admin.Products;
 
@@ -14,13 +16,16 @@ public class ProductService :
 {
     private readonly IProductRepository _productRepository;
     private readonly ProductManager _productManager;
+    private readonly IBlobContainer<ProductThumbnailPictureContainer> _fileContainer;
     public ProductService(
         IProductRepository repository,
-        ProductManager productManager
+        ProductManager productManager,
+        IBlobContainer<ProductThumbnailPictureContainer> fileContainer
     ) : base(repository)
     {
         _productRepository = repository;
         _productManager = productManager;
+        _fileContainer = fileContainer;
     }
 
     public async Task<List<ProductIntListDto>> GetListAllAsync()
@@ -41,7 +46,13 @@ public class ProductService :
     {
         var product = await _productManager.CreateAsync(Guid.NewGuid(), input.ManufacturerId, input.Name, input.Code,
             input.Description, input.ProductType, input.SKU, input.Slug, input.SortOrder, input.Visibility, input.IsActive,
-            input.CategoryId, input.SeoMetaDescription, input.ThumbnailPicture, input.SellPrice);
+            input.CategoryId, input.SeoMetaDescription, "", input.SellPrice);
+
+        if (input.ThumbnailPictureContent != null && input.ThumbnailPictureContent.Length > 0)
+        {
+            await SaveThumbnailImageAsync(input.ThumbnailPictureName, input.ThumbnailPictureContent);
+            product.ThumbnailPicture = input.ThumbnailPictureName;
+        }
 
         var result = await _productRepository.InsertAsync(product);
         return ObjectMapper.Map<Product, ProductDto>(result);
@@ -82,11 +93,23 @@ public class ProductService :
         product.IsActive = input.IsActive;
         product.SeoMetaDescription = input.SeoMetaDescription;
         product.Description = input.Description;
-        product.ThumbnailPicture = input.ThumbnailPicture;
+        if (input.ThumbnailPictureContent != null && input.ThumbnailPictureContent.Length > 0)
+        {
+            await SaveThumbnailImageAsync(input.ThumbnailPictureName, input.ThumbnailPictureContent);
+            product.ThumbnailPicture = input.ThumbnailPictureName;
+        }
         product.SellPrice = input.SellPrice;
         await Repository.UpdateAsync(product);
 
         return ObjectMapper.Map<Product, ProductDto>(product);
+    }
+
+    private async Task SaveThumbnailImageAsync(string fileName, string base64)
+    {
+        Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
+        base64 = regex.Replace(base64, string.Empty);
+        byte[] bytes = Convert.FromBase64String(base64);
+        await _fileContainer.SaveAsync(fileName, bytes, overrideExisting: true);
     }
 
 }
