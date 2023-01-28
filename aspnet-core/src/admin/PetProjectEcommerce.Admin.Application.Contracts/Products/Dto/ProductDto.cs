@@ -1,4 +1,5 @@
-﻿using PetProjectEcommerce.Products;
+﻿using PetProjectEcommerce.Admin.ProductCategories;
+using PetProjectEcommerce.Products;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,8 +24,7 @@ public class ProductDto : EntityDto<Guid>
     public string ThumbnailPicture { get; set; }
 
     public double SellPrice { get; set; }
-
-    //public virtual ProductCategory ProductCategory { get; set; }
+    public virtual ProductCategoryDto ProductCategory { get; set; }
     //public virtual Manufacturer Manufacturer { get; set; }
     //public virtual ICollection<Inventory> Inventories { get; set; }
     //public virtual ICollection<OrderItem> OrderItems { get; set; }

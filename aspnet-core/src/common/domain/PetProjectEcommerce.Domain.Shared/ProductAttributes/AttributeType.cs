@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace PetProjectEcommerce.ProductAttributes;
 
-namespace PetProjectEcommerce.ProductAttributes
+public enum AttributeType
 {
-    public enum AttributeType
-    {
-        Date,
-        Varchar,
-        Text,
-        Int,
-        Decimal
-    }
+    Int = 1,
+    Varchar = 2,
+    Text = 3,
+    Decimal = 4,
+    Date = 5
 }

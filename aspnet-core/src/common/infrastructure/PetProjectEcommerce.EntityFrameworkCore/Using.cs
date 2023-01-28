@@ -1,0 +1,9 @@
+﻿global using PetProjectEcommerce.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;
+global using System;
+global using System.Linq;
+global using System.Collections.Generic;
+global using System.Threading.Tasks;
+global using Volo.Abp.DependencyInjection;
+global using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
+global using Volo.Abp.EntityFrameworkCore;

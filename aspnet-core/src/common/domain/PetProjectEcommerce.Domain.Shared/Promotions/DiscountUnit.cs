@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace PetProjectEcommerce.Promotions;
 
-namespace PetProjectEcommerce.Promotions
+public enum DiscountUnit
 {
-    public enum DiscountUnit
-    {
-        MoneyAmount,
-        Percentage
-    }
+    MoneyAmount = 1,
+    Percentage = 2
 }

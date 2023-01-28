@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace PetProjectEcommerce.Orders;
 
-namespace PetProjectEcommerce.Orders
+public enum TransactionType
 {
-    public enum TransactionType
-    {
-        ConfirmOrder,
-        StartProcessing,
-        FinishOrder,
-        CancelOrder
-    }
+    ConfirmOrder = 1,
+    StartProcessing = 2, 
+    FinishOrder = 3, 
+    CancelOrder = 4
 }
