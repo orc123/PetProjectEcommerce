@@ -1,11 +1,12 @@
 import { PagedResultDto } from "@abp/ng.core";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ProductDto, ProductIntListDto, ProductService } from "@proxy/products";
-import { ProductCategoryService, ProductCategoryIntListDto } from '@proxy/product-categories';
+import { ProductCategoryService } from '@proxy/product-categories';
 import { firstValueFrom, Observable, Subject, takeUntil } from "rxjs";
 import { DialogService } from "primeng/dynamicdialog";
 import { ProductDetailComponent } from "./product-detail/product-detail.component";
 import { NotificationService } from "../shared/services/notification.service";
+import { ProductType } from "@proxy/pet-project-ecommerce/products";
 
 
 @Component({
@@ -104,6 +105,10 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.skipCount = (event.page - 1) * this.maxResultCount;
         this.maxResultCount = event.rows;
         this.loadData();
+    }
+
+    getProductType(value: number) {
+        return ProductType[value];
     }
 
     private toggleBlockUI(enabled: boolean) {

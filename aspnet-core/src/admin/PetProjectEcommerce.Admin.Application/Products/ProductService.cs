@@ -11,31 +11,39 @@ public class ProductService :
     >,
     IProductService
 {
-    private readonly IRepository<Product, Guid> _productRepository;
-    public ProductService(IRepository<Product, Guid> repository) : base(repository)
+    private readonly IProductRepository _productRepository;
+    public ProductService(
+        IProductRepository repository
+    ) : base(repository)
     {
         _productRepository = repository;
     }
 
     public async Task<List<ProductIntListDto>> GetListAllAsync()
     {
-        var query = (await _productRepository.GetQueryableAsync())
-           .Where(x => x.IsActive);
-        return ObjectMapper.Map<List<Product>, List<ProductIntListDto>>(query.ToList());
+        var data = (await _productRepository.GetQueryableAsync())
+           .Where(x => x.IsActive)
+           .Select(x => ObjectMapper.Map<Product, ProductIntListDto>(x))
+           .ToList();
+        return data;
     }
 
     public async Task<PagedResultDto<ProductIntListDto>> GetListFilterAsync(ProductListFilterDto input)
     {
-        var query = await _productRepository.GetQueryableAsync();
+        var (total, data) = await _productRepository.GetPagedProducts(
+                input.CategoryId, input.Keyword, input.SkipCount, input.MaxResultCount);
 
-        query = query
-            .WhereIf(!string.IsNullOrEmpty(input.Keyword), x => x.Name.Contains(input.Keyword))
-            .WhereIf(input.CategoryId.HasValue, x => x.CategoryId == input.CategoryId.Value);
-        var total = query.Count();
-
-        var data = query.Skip(input.SkipCount)
-                 .Take(input.MaxResultCount)
-                 .ToList();
         return new PagedResultDto<ProductIntListDto>(total, ObjectMapper.Map<List<Product>, List<ProductIntListDto>>(data));
     }
+
+    public override Task<ProductDto> CreateAsync(CreateUpdateProductDto input)
+    {
+        return base.CreateAsync(input);
+    }
+
+    public override Task<ProductDto> UpdateAsync(Guid id, CreateUpdateProductDto input)
+    {
+        return base.UpdateAsync(id, input);
+    }
+
 }

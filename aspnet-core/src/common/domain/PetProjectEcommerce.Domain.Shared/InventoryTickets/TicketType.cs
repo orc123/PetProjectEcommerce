@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace PetProjectEcommerce.InventoryTickets;
 
-namespace PetProjectEcommerce.InventoryTickets
+public enum TicketType
 {
-    public enum TicketType
-    {
-        Import,
-        Export
-    }
+    Import = 1,
+    Export = 2
 }

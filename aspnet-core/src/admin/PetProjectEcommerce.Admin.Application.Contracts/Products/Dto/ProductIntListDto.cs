@@ -1,4 +1,5 @@
-﻿using PetProjectEcommerce.Products;
+﻿using PetProjectEcommerce.Admin.ProductCategories;
+using PetProjectEcommerce.Products;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,7 @@ public class ProductIntListDto : EntityDto<Guid>
     public Guid CategoryId { get; set; }
     public string ThumbnailPicture { get; set; }
 
-    //public virtual ProductCategory ProductCategory { get; set; }
+    public virtual ProductCategoryDto ProductCategory { get; set; }
     //public virtual Manufacturer Manufacturer { get; set; }
     //public virtual ICollection<Inventory> Inventories { get; set; }
     //public virtual ICollection<OrderItem> OrderItems { get; set; }
