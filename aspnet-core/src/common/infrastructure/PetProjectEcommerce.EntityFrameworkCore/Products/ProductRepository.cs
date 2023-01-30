@@ -15,6 +15,7 @@ public class ProductRepository :
         var dbSet = await GetDbSetAsync();
         var query = dbSet
             .Include(x => x.ProductCategory)
+            .OrderByDescending(x => x.CreationTime)
             .Where(x => x.IsActive);
         return await query.ToListAsync();
     }
@@ -31,6 +32,7 @@ public class ProductRepository :
                 .CountAsync(),
             await query
                 .Include(x => x.ProductCategory)
+                .OrderByDescending(x => x.CreationTime)
                 .Skip(skipCount)
                 .Take(maxResultCount)
                 .ToListAsync()

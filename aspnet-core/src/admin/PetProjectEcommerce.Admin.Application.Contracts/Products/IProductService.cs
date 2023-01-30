@@ -12,4 +12,5 @@ public interface IProductService :
 {
     Task<PagedResultDto<ProductIntListDto>> GetListFilterAsync(ProductListFilterDto input);
     Task<List<ProductIntListDto>> GetListAllAsync();
+    Task<string> GetThumbnailImageAsync(string fileName);
 }

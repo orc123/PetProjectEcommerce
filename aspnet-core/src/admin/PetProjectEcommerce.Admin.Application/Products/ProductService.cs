@@ -112,4 +112,19 @@ public class ProductService :
         await _fileContainer.SaveAsync(fileName, bytes, overrideExisting: true);
     }
 
+    public async Task<string> GetThumbnailImageAsync(string fileName)
+    {
+        if (string.IsNullOrEmpty(fileName))
+        {
+            return null;
+        }
+        var thumbnailContent = await _fileContainer.GetAllBytesOrNullAsync(fileName);
+
+        if (thumbnailContent is null)
+        {
+            return null;
+        }
+        var result = Convert.ToBase64String(thumbnailContent);
+        return result;
+    }
 }
