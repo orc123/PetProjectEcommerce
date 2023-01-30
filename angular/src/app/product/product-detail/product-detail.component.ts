@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { DomSanitizer } from "@angular/platform-browser";
 import { ManufacturerInListDto, ManufacturerService } from "@proxy/manufacturers";
 import { productTypeOptions } from "@proxy/pet-project-ecommerce/products";
 import { ProductCategoryIntListDto, ProductCategoryService } from "@proxy/product-categories";
 import { ProductDto, ProductService } from "@proxy/products";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { firstValueFrom, Subject, takeUntil } from "rxjs";
+import { firstValueFrom, Observer, Subject, takeUntil } from "rxjs";
 import { NotificationService } from "src/app/shared/services/notification.service";
 import { UtilityService } from "src/app/shared/services/utility.service";
 
@@ -17,6 +18,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private ngUnsubscribe = new Subject<void>();
     blockedPanel: boolean = false;
     btnDisabled: boolean = false;
+    public thumbnailImage;
+
 
     public form: FormGroup;
 
@@ -26,6 +29,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     productTypes: any[] = [];
     selectedEntity = {} as ProductDto;
 
+    observer = {
+        next: value => {
+            this.toggleBlockUI(false);
+            this.ref.close(value);
+        },
+        error: (err) => {
+            this._notificationService.showError(err.error.error.message);
+            this.toggleBlockUI(false)
+        }
+    }
+
     constructor(
         private _productService: ProductService,
         private _productCategoryService: ProductCategoryService,
@@ -34,7 +48,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         private _notificationService: NotificationService,
         private fb: FormBuilder,
         public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig
+        public config: DynamicDialogConfig,
+        private cd: ChangeDetectorRef,
+        private sanitizer: DomSanitizer
     ) { }
 
     validationMessages = {
@@ -52,7 +68,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         sellPrice: [{ type: 'required', message: 'Bạn phải nhập giá bán' }]
     };
 
-    ngOnDestroy(): void { }
+    ngOnDestroy(): void {
+        if (this.ref) {
+            this.ref.close();
+        }
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+    }
 
     ngOnInit(): void {
         this.loadProductCategories();
@@ -73,6 +95,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.selectedEntity = await firstValueFrom(
             this._productService.get(id).pipe(takeUntil(this.ngUnsubscribe))
         );
+        this.loadThumbnail(this.selectedEntity.thumbnailPicture);
 
         this.loadData();
         this.toggleBlockUI(false);
@@ -83,30 +106,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         if (this.config.data?.id) {
             this._productService.update(this.config.data?.id, this.form.value)
                 .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe({
-                    next: value => {
-                        this.toggleBlockUI(false);
-                        this.ref.close(value);
-                    },
-                    error: (err) => {
-                        this._notificationService.showError(err.error.error.message);
-                        this.toggleBlockUI(false)
-                    }
-                });
+                .subscribe(this.observer);
         }
         else {
             this._productService.create(this.form.value)
                 .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe({
-                    next: value => {
-                        this.toggleBlockUI(false);
-                        this.ref.close(value);
-                    },
-                    error: (err) => {
-                        this._notificationService.showError(err.error.error.message);
-                        this.toggleBlockUI(false)
-                    }
-                });
+                .subscribe(this.observer);
         }
     }
 
@@ -146,6 +151,37 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         });
     }
 
+    onFileChange(event) {
+        const reader = new FileReader();
+
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.form.patchValue({
+                    thumbnailPictureName: file.name,
+                    thumbnailPictureContent: reader.result,
+                });
+
+                // need to run CD since file load runs outside of zone
+                this.cd.markForCheck();
+            };
+        }
+    }
+
+    loadThumbnail(fileName: string) {
+        this._productService.getThumbnailImage(fileName)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe({
+                next: (response: string) => {
+                    var fileExt = this.selectedEntity.thumbnailPicture?.split('.').pop();
+                    this.thumbnailImage = this.sanitizer.bypassSecurityTrustResourceUrl(
+                        `data:image/${fileExt};base64, ${response}`
+                    );
+                },
+            });
+    }
+
     private buildForm() {
         this.form = this.fb.group({
             name: new FormControl(null, Validators.compose([
@@ -164,6 +200,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             isActive: new FormControl(true),
             seoMetaDescription: new FormControl(null),
             description: new FormControl(null),
+            thumbnailPictureName: new FormControl(null),
+            thumbnailPictureContent: new FormControl(null)
         });
     }
 
