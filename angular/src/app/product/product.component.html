@@ -54,6 +54,8 @@
                 <td>
                     <button type="button" class="ml-1 p-button-help" pButton (click)="showEditModal(row)"
                         icon="fa fa-edit" iconPos="left" label="Cập nhật"></button>
+                        <button type="button" class="ml-1 p-button-danger" pButton (click)="onDelete(row)"
+                        icon="fa fa-remove" iconPos="left" label="Xóa"></button>
                 </td>
             </tr>
         </ng-template>

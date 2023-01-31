@@ -7,6 +7,7 @@ import { DialogService } from "primeng/dynamicdialog";
 import { ProductDetailComponent } from "./product-detail/product-detail.component";
 import { NotificationService } from "../shared/services/notification.service";
 import { ProductType } from "@proxy/pet-project-ecommerce/products";
+import { ConfirmationService } from "primeng/api";
 
 
 @Component({
@@ -32,7 +33,8 @@ export class ProductComponent implements OnInit, OnDestroy {
         private _productService: ProductService,
         private _productCategoryService: ProductCategoryService,
         private _dialogService: DialogService,
-        private _notificationService: NotificationService
+        private _notificationService: NotificationService,
+        private _confirmationService: ConfirmationService
     ) {
 
     }
@@ -97,6 +99,30 @@ export class ProductComponent implements OnInit, OnDestroy {
             if (data) {
                 this.loadData();
                 this._notificationService.showSuccess("Cập nhật sản phẩm thành công");
+            }
+        });
+    }
+
+    onDelete(row) {
+        this._confirmationService.confirm({
+            message: 'Bạn có muốn xóa bản ghi này không?',
+            accept: () => {
+                this.deleteItem(row.id);
+            }
+        });
+    }
+
+    deleteItem(id: string) {
+        this.toggleBlockUI(true);
+        this._productService.delete(id).subscribe({
+            next: () => {
+                this.toggleBlockUI(false);
+                this._notificationService.showSuccess("Xóa sản phẩm thành công");
+                this.loadData();
+            },
+            error: (err) => {
+                this._notificationService.showError(err.error.error.message);
+                this.toggleBlockUI(false)
             }
         });
     }

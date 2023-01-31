@@ -169,17 +169,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    loadThumbnail(fileName: string) {
-        this._productService.getThumbnailImage(fileName)
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe({
-                next: (response: string) => {
-                    var fileExt = this.selectedEntity.thumbnailPicture?.split('.').pop();
-                    this.thumbnailImage = this.sanitizer.bypassSecurityTrustResourceUrl(
-                        `data:image/${fileExt};base64, ${response}`
-                    );
-                },
-            });
+    async loadThumbnail(fileName: string) {
+        var result = await firstValueFrom(this._productService.getThumbnailImage(fileName)
+            .pipe(takeUntil(this.ngUnsubscribe)));
+
+        var fileExt = this.selectedEntity.thumbnailPicture?.split('.').pop();
+        this.thumbnailImage = this.sanitizer.bypassSecurityTrustResourceUrl(
+            `data:image/${fileExt};base64, ${result}`
+        );
     }
 
     private buildForm() {
